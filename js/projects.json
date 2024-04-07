@@ -1,0 +1,241 @@
+[
+  {
+    "name": "Blackpine",
+    "url": "https://www.blackpinecommunities.com/",
+    "company": "The Brand Factory",
+    "type": "web",
+    "images": [
+      {
+        "src": "blackpine-landing.png",
+        "comment": "home page"
+      },
+      {
+        "src": "blackpine-blackbook-detail.png",
+        "comment": "community list"
+      },
+      {
+        "src": "blackpine-community-shortcut.png",
+        "comment": "home page community short cut"
+      },
+      {
+        "src": "blackpine-left-scrollbar.png",
+        "comment": "side scroll bar"
+      },
+      {
+        "src": "blackpine-nav-open.png",
+        "comment": "open nav"
+      },
+      {
+        "src": "blackpine-nav-open.png",
+        "comment": "video section"
+      },
+      {
+        "src": "blackpine-community-page.jpg",
+        "comment": "community page"
+      },
+      {
+        "src": "blackpine-community-list.jpg",
+        "comment": "list of homes in a community"
+      }
+    ],
+    "technology": [
+      "html5",
+      "css",
+      "scss",
+      "js",
+      "jquery",
+      "slick slider",
+      "fancybox"
+    ]
+  },
+  {
+    "name": "Neff Living",
+    "url": "https://www.neffliving.com/#perfection",
+    "company": "The Brand Factory",
+    "type": "web",
+    "images": [
+      {
+        "src": "neff-landing.jpg",
+        "comment": "neff landing page"
+      },
+      {
+        "src": "neff-welcome.jpg",
+        "comment": "home page header"
+      },
+      {
+        "src": "neff-nav.jpg",
+        "comment": "nav open and hover effect"
+      }
+    ],
+    "technology": ["html5", "css", "scss", "js", "fancybox", "swiper slider"]
+  },
+  {
+    "name": "elad canada",
+    "url": "https://galleriaonthepark.com/elad",
+    "company": "The Brand Factory",
+    "type": "web",
+    "images": [
+      {
+        "src": "neff-landing.jpg",
+        "comment": "neff landing page"
+      },
+      {
+        "src": "elad-signup.jpg",
+        "comment": "sign up slider"
+      }
+    ],
+    "media": "elad-website-design.pdf",
+    "technology": ["html5", "css", "bootstrap", "js"]
+  },
+  {
+    "name": "wp development",
+    "url": "https://wpdevelopment.ca/",
+    "company": "The Brand Factory",
+    "type": "web",
+    "images": [
+      {
+        "src": "wp-development-landing.jpg",
+        "comment": "wp development landing page"
+      },
+      {
+        "src": "wp-development-about.jpg",
+        "comment": "wp development about page"
+      },
+      {
+        "src": "wp-development-communities.jpg",
+        "comment": "list of communities"
+      },
+      {
+        "src": "wp-development-siteplan.jpg",
+        "comment": "community site plan"
+      },
+      {
+        "src": "wp-development-valleyview-homes.jpg",
+        "comment": "list of homes in a community"
+      },
+      {
+        "src": "wp-development-area-amenities.jpg",
+        "comment": "community area amenities"
+      }
+    ],
+    "technology": ["html5", "css", "bootstrap", "js"]
+  },
+  {
+    "name": "veraine",
+    "url": "https://www.veraine.com/",
+    "company": "The Brand Factory",
+    "type": "web",
+    "images": [
+      {
+        "src": "veraine-landing.jpg",
+        "comment": "veraine landing page"
+      },
+      {
+        "src": "veraine-nav.jpg",
+        "comment": "navigation"
+      }
+    ],
+    "technology": ["html5", "css", "scss", "js"]
+  },
+  {
+    "name": "skale",
+    "url": "https://www.skale.ca/",
+    "company": "The Brand Factory",
+    "type": "web",
+    "images": [
+      {
+        "src": "skale-landing.jpg",
+        "comment": "skale landing page"
+      },
+      {
+        "src": "skale-residential.jpg",
+        "comment": "residentials list page"
+      },
+      {
+        "src": "skale-residence.jpg",
+        "comment": "a single residence page"
+      },
+      {
+        "src": "skale-register.jpg",
+        "comment": "register page"
+      },
+      {
+        "src": "skale-contact.jpg",
+        "comment": "contact form"
+      }
+    ],
+    "technology": ["html5", "purecss.io", "scss", "js"]
+  },
+  {
+    "name": "emblem corp",
+    "url": "https://www.emblemdevcorp.com/",
+    "company": "The Brand Factory",
+    "type": "web",
+    "images": [
+      {
+        "src": "emblem-website.jpg",
+        "comment": "emblem landing page"
+      }
+    ],
+    "media": "emblem-corp-website.pdf",
+    "technology": ["html5", "css", "scss", "js"]
+  },
+  {
+    "name": "Stanford",
+    "url": "https://www.stanfordhomes.ca/",
+    "company": "The Brand Factory",
+    "type": "web",
+    "images": [
+      {
+        "src": "stanford-landing.jpg",
+        "comment": "stanford home page, desktop and mobile layout"
+      },
+      {
+        "src": "stanford-homes.jpg",
+        "comment": "residence page desktop/mobile layout"
+      },
+      {
+        "src": "stanford-101.jpg",
+        "comment": "about us page"
+      },
+      {
+        "src": "stanford-models.jpg",
+        "comment": "list of models"
+      },
+      {
+        "src": "stanford-floorplans.jpg",
+        "comment": "a community floorplan with elevations"
+      }
+    ],
+    "technology": ["html5", "purecss.io", "scss", "js", "vue"]
+  },
+  {
+    "name": "Stanford touch",
+    "url": "http://stanford.touch.joeyai.cloud/",
+    "company": "The Brand Factory",
+    "type": "touch",
+    "images": [
+      {
+        "src": "69-stanford-touchscreen-start-screen.png",
+        "comment": "Start page to choose what area"
+      },
+      {
+        "src": "69-stanford-our-story-page.png",
+        "comment": "about us"
+      },
+      {
+        "src": "69-stanford-touchscreen-model-list.png",
+        "comment": "list of models"
+      },
+      {
+        "src": "69-stanford-touchscreen-floorplan-detail.png",
+        "comment": "floorplan details"
+      },
+      {
+        "src": "69-stanford-screensaver.png",
+        "comment": "screensaver"
+      }
+    ],
+    "technology": ["html5", "purecss.io", "scss", "js", "vue"]
+  }
+]
