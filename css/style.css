@@ -160,7 +160,7 @@ header ul li a {
 
 .content button.chat {
   background: transparent;
-  color: var(--dark);
+  color: var(--off-white);
 }
 
 .content button.chat ion-icon {
