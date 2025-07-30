@@ -18,13 +18,17 @@ function fillUpPortfolio(portfolio) {
 }
 
 async function fetchPortfolio() {
-  const response = await fetch("/js/projects.json")
+  const response = await fetch("js/projects.json")
   const portfolio = await response.json()
   return portfolio
 }
 
 window.addEventListener("DOMContentLoaded", function (e) {
-  fetchPortfolio().then((json) => {
-    fillUpPortfolio(json)
-  })
+  fetchPortfolio()
+    .then((json) => {
+      fillUpPortfolio(json)
+    })
+    .catch(error => {
+      console.error('Error fetching portfolio. Please check if "js/projects.json" exists and is accessible. Detailed error:', error);
+    })
 })
