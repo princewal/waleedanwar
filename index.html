@@ -23,7 +23,7 @@
 
   <body tabindex="0">
     <header class="header-top header--position">
-      <a href="#" class="logo"><img src="./images/logo.png" alt="My Logo" /></a>
+      <a href="#" class="logo" id="logo"><img src="./images/logo/transparent-logo.svg" alt="My Logo" /></a>
       <nav>
         <ul>
           <li>
@@ -33,17 +33,17 @@
             <a href="#about">About</a>
           </li>
           <li>
-            <a href="">Work</a>
+            <a href="#services">Services</a>
           </li>
           <li>
-            <a href="">Contact</a>
+            <a href="#portfolio">Work</a>
           </li>
         </ul>
       </nav>
     </header>
     <main>
       <article class="container">
-        <section class="banner">
+        <section class="banner" id="home">
           <div class="content">
             <div class="starter">Hey_</div>
             <h1>I am <span id="text"></span></h1>
@@ -102,35 +102,142 @@
           </div>
         </section>
       </article>
-      <article class="container text-center">
-        <section id="about">
-          <header>
-            <h2>
-              About<br />
-              me
+      <article class="container">
+        <section id="about" class="section section--about">
+          <div class="section-bg" aria-hidden="true">
+            <div class="bg-word">ABOUT</div>
+          </div>
+
+          <header class="section-header">
+            <p class="section-kicker">About me</p>
+            <h2 class="section-title">
+              <span class="reveal-word">I build</span>
+              <span class="reveal-word">clean web</span>
+              <span class="reveal-word"><span id="about-type" class="accent">with motion</span></span>
             </h2>
+            <div class="about-underline" aria-hidden="true"></div>
+            <p class="section-subtitle reveal">
+              Front-end engineer focused on modern web experiences: fast, accessible, and memorable.
+            </p>
           </header>
-          <div class="content">
-            <p>
-              I am a web developer with over 8 years of experience with
-              expertise in front end development. I have worked in various
-              industries and with different minds to understand that there is
-              more to just coding. Lets get together and see what we can create.
-              Make visions into reality and even sort out how the processes in
-              the companies would work.
-            </p>
-            <p>
-              With specializing in JS and its library like React and Vue along
-              with CSS and its preprocessors and libraries like Bootstrap,
-              Tailwind, SCSS etc., I can come in and be part of a team
-              seamlessly or just start high quality work.
-            </p>
-            <p>
-              So please dream up something amazing and see what we can do to
-              about it.
-            </p>
+
+          <div class="about-grid">
+            <div class="about-copy">
+              <p class="reveal">
+                I’m a web developer with 8+ years of experience turning ideas into production-ready interfaces.
+                I care about the “why” behind the product, then I ship a UI that feels intentional—layout, typography,
+                and interaction all working together.
+              </p>
+              <p class="reveal">
+                I specialize in JavaScript (React/Vue), CSS architecture, design systems, and performance.
+                Whether you need a strong teammate or a hands-on partner, I can jump in quickly and deliver high quality.
+              </p>
+              <p class="reveal">
+                If you’re building something ambitious, I’ll help you make it real—with polish.
+              </p>
+            </div>
+
+            <div class="about-stats" aria-label="Highlights">
+              <div class="stat-card">
+                <div class="stat-number">8+</div>
+                <div class="stat-label">Years building web apps</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">UI</div>
+                <div class="stat-label">Design systems & components</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">GSAP</div>
+                <div class="stat-label">Scroll-triggered motion</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">Perf</div>
+                <div class="stat-label">Speed, SEO, accessibility</div>
+              </div>
+            </div>
           </div>
         </section>
+
+        <section id="services" class="section section--services">
+          <div class="section-bg" aria-hidden="true">
+            <div class="bg-word">SERVICES</div>
+          </div>
+
+          <header class="section-header">
+            <p class="section-kicker">What I do</p>
+            <h2 class="section-title">
+              <span class="reveal-word">Services</span>
+              <span class="reveal-word"><span id="ship-type" class="accent">that ship</span></span>
+            </h2>
+            <div class="ship-underline" aria-hidden="true"></div>
+            <p class="section-subtitle reveal">
+              Pick what you need. I can own the whole front-end or plug into your team.
+            </p>
+          </header>
+
+          <div class="services-grid">
+            <div class="service-card">
+              <div class="service-icon" aria-hidden="true">
+                <ion-icon name="layers-outline"></ion-icon>
+              </div>
+              <h3 class="service-title">Front-end Development</h3>
+              <p class="service-desc">
+                React/Vue builds, component libraries, and maintainable CSS that scales with your product.
+              </p>
+              <ul class="service-points">
+                <li>Reusable components</li>
+                <li>Responsive layouts</li>
+                <li>Clean codebase structure</li>
+              </ul>
+            </div>
+
+            <div class="service-card">
+              <div class="service-icon" aria-hidden="true">
+                <ion-icon name="color-wand-outline"></ion-icon>
+              </div>
+              <h3 class="service-title">UI Engineering</h3>
+              <p class="service-desc">
+                Pixel-precise implementation with typography, spacing, and interaction details that feel premium.
+              </p>
+              <ul class="service-points">
+                <li>Design system setup</li>
+                <li>Accessible UI patterns</li>
+                <li>Micro-interactions</li>
+              </ul>
+            </div>
+
+            <div class="service-card">
+              <div class="service-icon" aria-hidden="true">
+                <ion-icon name="speedometer-outline"></ion-icon>
+              </div>
+              <h3 class="service-title">Performance & SEO</h3>
+              <p class="service-desc">
+                Faster pages and better rankings—improve Core Web Vitals without sacrificing design.
+              </p>
+              <ul class="service-points">
+                <li>Audit & quick wins</li>
+                <li>Asset optimization</li>
+                <li>Semantic, indexable markup</li>
+              </ul>
+            </div>
+
+            <div class="service-card">
+              <div class="service-icon" aria-hidden="true">
+                <ion-icon name="sparkles-outline"></ion-icon>
+              </div>
+              <h3 class="service-title">GSAP Motion</h3>
+              <p class="service-desc">
+                Scroll-triggered animations that feel smooth, intentional, and performance-friendly.
+              </p>
+              <ul class="service-points">
+                <li>Reveal & stagger systems</li>
+                <li>Parallax typography</li>
+                <li>Interaction polish</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
         <section id="portfolio"></section>
       </article>
     </main>
@@ -138,7 +245,17 @@
 
     <!-- script
 	================================================== -->
+    <!-- GSAP Core Library -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <!-- GSAP ScrollTrigger Plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <!-- GSAP Text Plugin (for text animations) -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/TextPlugin.min.js"></script>
+    <!-- GSAP ScrollTo Plugin (for smooth scrolling) -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
+    
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script src="https://unpkg.com/lenis@1.2.3/dist/lenis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script
       type="module"
