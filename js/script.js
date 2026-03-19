@@ -67,7 +67,7 @@ function startAboutTypingEffect() {
   if (!el) return
 
   aboutTypingEffect = new Typed("#about-type", {
-    strings: ["with vision", "with optimization", "with motion", "with passion"],
+    strings: ["vision", "optimization", "purpose", "passion"],
     loop: true,
     typeSpeed: 70,
     backSpeed: 32,
@@ -405,6 +405,84 @@ function initGSAPAnimations() {
     })
   }
 
+  // Projects section scroll-triggered animation
+  const projectsSection = document.querySelector("#portfolio")
+  if (projectsSection) {
+    gsap.from("#portfolio .bg-word", {
+      scrollTrigger: {
+        trigger: "#portfolio",
+        start: "top 85%",
+        toggleActions: "play none none reverse",
+      },
+      opacity: 0,
+      y: 30,
+      duration: 1,
+      ease: "power2.out",
+    })
+
+    gsap.to("#portfolio .bg-word", {
+      xPercent: -8,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#portfolio",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      },
+    })
+
+    gsap.from("#portfolio .reveal-word", {
+      scrollTrigger: {
+        trigger: "#portfolio",
+        start: "top 78%",
+        toggleActions: "play none none reverse",
+      },
+      opacity: 0,
+      y: 50,
+      duration: 0.9,
+      stagger: 0.08,
+      ease: "power3.out",
+    })
+
+    gsap.from("#portfolio .projects-underline", {
+      scrollTrigger: {
+        trigger: "#portfolio",
+        start: "top 78%",
+        toggleActions: "play none none reverse",
+      },
+      scaleX: 0,
+      duration: 0.9,
+      ease: "power3.out",
+      transformOrigin: "left center",
+    })
+
+    gsap.from("#portfolio .reveal", {
+      scrollTrigger: {
+        trigger: "#portfolio",
+        start: "top 72%",
+        toggleActions: "play none none reverse",
+      },
+      opacity: 0,
+      y: 26,
+      duration: 0.8,
+      stagger: 0.12,
+      ease: "power2.out",
+    })
+
+    gsap.from("#portfolio .project-card", {
+      scrollTrigger: {
+        trigger: "#portfolio",
+        start: "top 65%",
+        toggleActions: "play none none reverse",
+      },
+      opacity: 0,
+      y: 30,
+      duration: 0.85,
+      stagger: 0.1,
+      ease: "power3.out",
+    })
+  }
+
   // Header animation on scroll
   const header = document.querySelector(".header-top")
   if (header) {
@@ -560,8 +638,252 @@ function initSocialIconAnimations() {
   })
 }
 
+function normalizeTech(tech) {
+  if (!tech) return ""
+  return String(tech).trim().toLowerCase()
+}
+
+function techIconFor(tech) {
+  const t = normalizeTech(tech)
+  if (t === "html" || t === "html5") return "./images/html5.svg"
+  if (t === "css" || t === "css3") return "./images/css3.svg"
+  if (t === "js" || t === "javascript") return "./images/js.svg"
+  if (t === "react" || t === "reactjs") return "./images/react.svg"
+  if (t === "vue" || t === "vuejs") return "./images/vue.svg"
+  return null
+}
+
+function formatTechLabel(tech) {
+  const t = normalizeTech(tech)
+  if (t === "html5") return "HTML"
+  if (t === "css") return "CSS"
+  if (t === "css3") return "CSS"
+  if (t === "js") return "JavaScript"
+  if (t === "vue") return "Vue"
+  if (t === "react") return "React"
+  if (!t) return ""
+  return tech
+}
+
+function buildTechIconList(technologyList) {
+  // Rule:
+  // - Use technology[] to show icons
+  // - Skip entries with no icon mapping
+  // - If technology[] missing/empty OR none of the entries map to an icon => default HTML/CSS/JS
+  const defaultTech = ["html5", "css", "js"]
+
+  if (!Array.isArray(technologyList) || technologyList.length === 0) {
+    return defaultTech
+  }
+
+  const normalized = technologyList.map(normalizeTech)
+  const uniq = []
+  const seen = new Set()
+  for (const t of normalized) {
+    if (!t || seen.has(t)) continue
+    seen.add(t)
+    if (techIconFor(t)) uniq.push(t)
+  }
+
+  return uniq.length > 0 ? uniq : defaultTech
+}
+
+function projectImageSrc(project) {
+  const type = normalizeTech(project?.type) || "web"
+  const first = project?.images?.[0]?.src
+  if (!first) return ""
+  return `./images/${type}/${first}`
+}
+
+function projectImageAlt(project) {
+  const comment = project?.images?.[0]?.comment
+  if (comment) return comment
+  if (project?.name) return `${project.name} preview`
+  return "Project preview"
+}
+
+let activeModalTl = null
+
+const modalEls = {
+  root: null,
+  overlay: null,
+  dialog: null,
+  img: null,
+  title: null,
+  link: null,
+  meta: null,
+  tech: null,
+  closeBtn: null,
+  hero: null,
+  body: null,
+}
+
+function getModalEls() {
+  if (modalEls.root) return modalEls
+  modalEls.root = document.querySelector("#project-modal")
+  modalEls.overlay = document.querySelector("#project-modal .modal-overlay")
+  modalEls.dialog = document.querySelector("#project-modal .modal-dialog")
+  modalEls.img = document.querySelector("#project-modal-image")
+  modalEls.title = document.querySelector("#project-modal-title")
+  modalEls.link = document.querySelector("#project-modal-link")
+  modalEls.meta = document.querySelector("#project-modal-meta")
+  modalEls.tech = document.querySelector("#project-modal-tech")
+  modalEls.closeBtn = document.querySelector("#project-modal [data-modal-close]")
+  modalEls.hero = document.querySelector("#project-modal .modal-hero")
+  modalEls.body = document.querySelector("#project-modal .modal-body")
+  return modalEls
+}
+
+function openProjectModal(project) {
+  const els = getModalEls()
+  if (!els.root || !els.dialog) return
+
+  // Fill content
+  const imgSrc = projectImageSrc(project)
+  els.img.src = imgSrc
+  els.img.alt = projectImageAlt(project)
+
+  els.title.textContent = project?.name || "Project"
+  els.link.href = project?.url || "#"
+  els.link.style.display = project?.url ? "inline-flex" : "none"
+
+  const company = project?.company ? project.company : ""
+  const type = project?.type ? String(project.type).toUpperCase() : ""
+  els.meta.textContent = [company, type].filter(Boolean).join(" • ")
+
+  const techList = buildTechIconList(project?.technology)
+  els.tech.innerHTML = techList
+    .map((t) => {
+      const icon = techIconFor(t)
+      if (!icon) return ""
+      return `<span class="tech-pill"><img src="${icon}" alt="" aria-hidden="true" />${formatTechLabel(t)}</span>`
+    })
+    .join("")
+
+  els.root.classList.add("is-open")
+  els.root.setAttribute("aria-hidden", "false")
+
+  if (lenis) lenis.stop()
+
+  // Kill any existing timeline
+  if (activeModalTl) activeModalTl.kill()
+
+  // Squish-into-line then expand
+  gsap.set(els.overlay, { autoAlpha: 0 })
+  gsap.set(els.dialog, { autoAlpha: 1, y: 0, scaleY: 0.04, scaleX: 0.98 })
+
+  activeModalTl = gsap
+    .timeline({ defaults: { ease: "power2.out" } })
+    .to(els.overlay, { autoAlpha: 1, duration: 0.25 }, 0)
+    .to(
+      els.dialog,
+      {
+        scaleY: 1,
+        scaleX: 1,
+        duration: 0.6,
+        ease: "power3.out",
+      },
+      0
+    )
+    .from(
+      [els.hero, els.body].filter(Boolean),
+      { autoAlpha: 0, y: 10, duration: 0.35, stagger: 0.08, ease: "power2.out" },
+      0.15
+    )
+
+  // Focus close button for keyboard users
+  if (els.closeBtn) els.closeBtn.focus()
+}
+
+function closeProjectModal() {
+  const els = getModalEls()
+  if (!els.root || !els.dialog) return
+  if (!els.root.classList.contains("is-open")) return
+
+  const finish = () => {
+    els.root.classList.remove("is-open")
+    els.root.setAttribute("aria-hidden", "true")
+    if (lenis) lenis.start()
+  }
+
+  if (activeModalTl) activeModalTl.kill()
+
+  activeModalTl = gsap
+    .timeline({ onComplete: finish })
+    .to(els.dialog, { scaleY: 0.04, scaleX: 0.98, duration: 0.35, ease: "power2.in" }, 0)
+    .to(els.overlay, { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 0.1)
+}
+
 function fillUpPortfolio(portfolio) {
-  console.log("portfolio", portfolio)
+  const grid = document.querySelector("#portfolio-grid")
+  if (!grid) return
+
+  grid.innerHTML = ""
+
+  // Ensure modal elements are cached and close handlers are bound once
+  const modalRoot = document.querySelector("#project-modal")
+  if (modalRoot && !modalRoot.dataset.bound) {
+    modalRoot.dataset.bound = "true"
+    modalRoot.addEventListener("click", (e) => {
+      const target = e.target
+      if (target && target.closest && target.closest("[data-modal-close]")) {
+        closeProjectModal()
+      }
+    })
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeProjectModal()
+    })
+  }
+
+  portfolio.forEach((project, idx) => {
+    const techList = buildTechIconList(project?.technology)
+    const techHtml = techList
+      .map((t) => {
+        const icon = techIconFor(t)
+        const label = formatTechLabel(t)
+        if (!icon) return ""
+        return `<span class="tech-pill"><img src="${icon}" alt="" aria-hidden="true" />${label}</span>`
+      })
+      .join("")
+
+    const imgSrc = projectImageSrc(project)
+    const imgAlt = projectImageAlt(project)
+    const company = project?.company ? project.company : ""
+    const type = project?.type ? String(project.type).toUpperCase() : ""
+    const meta = [company, type].filter(Boolean).join(" • ")
+
+    const card = document.createElement("div")
+    card.className = "project-card"
+    card.tabIndex = 0
+    card.setAttribute("role", "button")
+    card.setAttribute("aria-label", `Open project: ${project?.name || "Project"}`)
+    card.dataset.projectIndex = String(idx)
+
+    card.innerHTML = `
+      <div class="project-thumb">
+        <img src="${imgSrc}" alt="${imgAlt}" loading="lazy" />
+      </div>
+      <div class="project-info">
+        <h3 class="project-title">${project?.name || "Project"}</h3>
+        <div class="project-meta">${meta}</div>
+        <div class="tech-row">${techHtml}</div>
+      </div>
+    `
+
+    const open = () => openProjectModal(project)
+    card.addEventListener("click", open)
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault()
+        open()
+      }
+    })
+
+    grid.appendChild(card)
+  })
+
+  // Let ScrollTrigger recalc after DOM changes
+  ScrollTrigger.refresh()
 }
 
 async function fetchPortfolio() {

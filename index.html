@@ -112,8 +112,8 @@
             <p class="section-kicker">About me</p>
             <h2 class="section-title">
               <span class="reveal-word">I build</span>
-              <span class="reveal-word">clean web</span>
-              <span class="reveal-word"><span id="about-type" class="accent">with motion</span></span>
+              <span class="reveal-word">web with</span>
+              <span class="reveal-word"><span id="about-type" class="accent">purpose</span></span>
             </h2>
             <div class="about-underline" aria-hidden="true"></div>
             <p class="section-subtitle reveal">
@@ -238,10 +238,60 @@
           </div>
         </section>
 
-        <section id="portfolio"></section>
+        <section id="portfolio" class="section section--projects">
+          <div class="section-bg" aria-hidden="true">
+            <div class="bg-word">PROJECTS</div>
+          </div>
+
+          <header class="section-header">
+            <p class="section-kicker">Selected work</p>
+            <h2 class="section-title">
+              <span class="reveal-word">Projects</span>
+              <span class="reveal-word accent">I shipped</span>
+            </h2>
+            <div class="projects-underline" aria-hidden="true"></div>
+            <p class="section-subtitle reveal">
+              A few builds across web apps, marketing sites, and interactive experiences.
+            </p>
+          </header>
+
+          <div id="portfolio-grid" class="projects-grid" aria-live="polite"></div>
+        </section>
       </article>
     </main>
     <footer id="site-footer">&COPY; Waleed, 2023</footer>
+
+    <!-- Projects Modal -->
+    <div id="project-modal" class="modal" aria-hidden="true">
+      <div class="modal-overlay" data-modal-close></div>
+      <div
+        class="modal-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="project-modal-title"
+      >
+        <button class="modal-close" type="button" aria-label="Close project" data-modal-close>
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+
+        <div class="modal-hero">
+          <img id="project-modal-image" alt="" loading="lazy" />
+        </div>
+
+        <div class="modal-body">
+          <div class="modal-top">
+            <h3 id="project-modal-title" class="modal-title"></h3>
+            <a id="project-modal-link" class="modal-link" href="#" target="_blank" rel="noreferrer">
+              Visit
+              <ion-icon name="arrow-forward-outline"></ion-icon>
+            </a>
+          </div>
+
+          <p id="project-modal-meta" class="modal-meta"></p>
+          <div id="project-modal-tech" class="tech-row" aria-label="Technologies used"></div>
+        </div>
+      </div>
+    </div>
 
     <!-- script
 	================================================== -->

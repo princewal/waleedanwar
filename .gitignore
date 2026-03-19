@@ -14,3 +14,7 @@ logs
 # Dependency directories
 node_modules/
 development_assets/
+
+# Local design/reference notes
+ABOUT_SECTION_DESIGN_EXAMPLES.md
+GSAP_PORTFOLIO_RESOURCES.md
