@@ -742,6 +742,7 @@ function openProjectModal(project) {
   const imgSrc = projectImageSrc(project)
   els.img.src = imgSrc
   els.img.alt = projectImageAlt(project)
+  els.img.decoding = "async"
 
   els.title.textContent = project?.name || "Project"
   els.link.href = project?.url || "#"
@@ -756,7 +757,7 @@ function openProjectModal(project) {
     .map((t) => {
       const icon = techIconFor(t)
       if (!icon) return ""
-      return `<span class="tech-pill"><img src="${icon}" alt="" aria-hidden="true" />${formatTechLabel(t)}</span>`
+      return `<span class="tech-pill"><img src="${icon}" alt="" aria-hidden="true" loading="lazy" decoding="async" />${formatTechLabel(t)}</span>`
     })
     .join("")
 
@@ -771,6 +772,7 @@ function openProjectModal(project) {
   // Squish-into-line then expand
   gsap.set(els.overlay, { autoAlpha: 0 })
   gsap.set(els.dialog, { autoAlpha: 1, y: 0, scaleY: 0.04, scaleX: 0.98 })
+  gsap.set([els.hero, els.body].filter(Boolean), { autoAlpha: 1, y: 0 })
 
   activeModalTl = gsap
     .timeline({ defaults: { ease: "power2.out" } })
@@ -785,9 +787,10 @@ function openProjectModal(project) {
       },
       0
     )
-    .from(
+    .fromTo(
       [els.hero, els.body].filter(Boolean),
-      { autoAlpha: 0, y: 10, duration: 0.35, stagger: 0.08, ease: "power2.out" },
+      { autoAlpha: 0, y: 10 },
+      { autoAlpha: 1, y: 0, duration: 0.35, stagger: 0.08, ease: "power2.out" },
       0.15
     )
 
@@ -810,8 +813,9 @@ function closeProjectModal() {
 
   activeModalTl = gsap
     .timeline({ onComplete: finish })
-    .to(els.dialog, { scaleY: 0.04, scaleX: 0.98, duration: 0.35, ease: "power2.in" }, 0)
-    .to(els.overlay, { autoAlpha: 0, duration: 0.25, ease: "power2.in" }, 0.1)
+    .to([els.hero, els.body].filter(Boolean), { autoAlpha: 0, y: -6, duration: 0.18, ease: "power1.in" }, 0)
+    .to(els.dialog, { scaleY: 0.04, scaleX: 0.98, duration: 0.26, ease: "power3.inOut" }, 0.04)
+    .to(els.overlay, { autoAlpha: 0, duration: 0.22, ease: "power2.inOut" }, 0.02)
 }
 
 function fillUpPortfolio(portfolio) {
@@ -842,7 +846,7 @@ function fillUpPortfolio(portfolio) {
         const icon = techIconFor(t)
         const label = formatTechLabel(t)
         if (!icon) return ""
-        return `<span class="tech-pill"><img src="${icon}" alt="" aria-hidden="true" />${label}</span>`
+        return `<span class="tech-pill"><img src="${icon}" alt="" aria-hidden="true" loading="lazy" decoding="async" />${label}</span>`
       })
       .join("")
 
@@ -861,7 +865,7 @@ function fillUpPortfolio(portfolio) {
 
     card.innerHTML = `
       <div class="project-thumb">
-        <img src="${imgSrc}" alt="${imgAlt}" loading="lazy" />
+        <img src="${imgSrc}" alt="${imgAlt}" loading="lazy" decoding="async" fetchpriority="low" />
       </div>
       <div class="project-info">
         <h3 class="project-title">${project?.name || "Project"}</h3>

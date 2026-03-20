@@ -657,11 +657,16 @@ header ul li a {
   position: fixed;
   inset: 0;
   z-index: 999;
-  display: none;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .modal.is-open {
-  display: block;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .modal-overlay {
@@ -671,6 +676,7 @@ header ul li a {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   opacity: 0;
+  will-change: opacity;
 }
 
 .modal-dialog {
@@ -685,6 +691,7 @@ header ul li a {
   transform-origin: center top;
   transform: translateY(12px);
   opacity: 0;
+  will-change: transform, opacity;
 }
 
 .modal-close {
