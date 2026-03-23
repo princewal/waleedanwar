@@ -885,6 +885,28 @@ header ul li a {
   display: flex;
   flex-direction: column;
   height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card .service-bg-icon {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  z-index: 0;
+  font-size: 9rem;
+  line-height: 1;
+  opacity: 0.08;
+  pointer-events: none;
+  transform: rotate(14deg);
+  color: var(--off-white);
+}
+
+.service-card .service-title,
+.service-card .service-desc,
+.service-card .service-points {
+  z-index: 1;
+  position: relative;
 }
 
 .service-card:hover {
@@ -895,22 +917,6 @@ header ul li a {
     rgba(255, 255, 255, 0.14),
     rgba(180, 87, 87, 0.08)
   );
-}
-
-.service-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  background: rgba(227, 76, 38, 0.14);
-  border: 1px solid rgba(227, 76, 38, 0.25);
-  margin-bottom: 12px;
-}
-
-.service-icon ion-icon {
-  font-size: 1.6em;
-  color: #ffb199;
 }
 
 .service-title {
