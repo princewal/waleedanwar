@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <title>Waleed, a dev portfolio site</title>
@@ -23,7 +23,9 @@
 
   <body tabindex="0">
     <header class="header-top header--position">
-      <a href="#" class="logo" id="logo"><img src="./images/logo/transparent-logo.svg" alt="My Logo" /></a>
+      <a href="#" class="logo" id="logo"
+        ><img src="./images/logo/transparent-logo.svg" alt="My Logo"
+      /></a>
       <nav>
         <ul>
           <li>
@@ -111,29 +113,35 @@
           <header class="section-header">
             <p class="section-kicker">About me</p>
             <h2 class="section-title">
-              <span class="reveal-word">I build</span>
-              <span class="reveal-word">web with</span>
-              <span class="reveal-word"><span id="about-type" class="accent">purpose</span></span>
+              <span class="reveal-word">I build with</span>
+              <span class="reveal-word accent"
+                ><span id="about-type">motion</span></span
+              >
             </h2>
             <div class="about-underline" aria-hidden="true"></div>
             <p class="section-subtitle reveal">
-              Front-end engineer focused on modern web experiences: fast, accessible, and memorable.
+              Front-end engineer focused on modern web experiences: fast,
+              accessible, and memorable.
             </p>
           </header>
 
           <div class="about-grid">
             <div class="about-copy">
               <p class="reveal">
-                I’m a web developer with 8+ years of experience turning ideas into production-ready interfaces.
-                I care about the “why” behind the product, then I ship a UI that feels intentional—layout, typography,
-                and interaction all working together.
+                I’m a web developer with 8+ years of experience turning ideas
+                into production-ready interfaces. I care about the “why” behind
+                the product, then I ship a UI that feels intentional—layout,
+                typography, and interaction all working together.
               </p>
               <p class="reveal">
-                I specialize in JavaScript (React/Vue), CSS architecture, design systems, and performance.
-                Whether you need a strong teammate or a hands-on partner, I can jump in quickly and deliver high quality.
+                I specialize in JavaScript (React/Vue), CSS architecture, design
+                systems, and performance. Whether you need a strong teammate or
+                a hands-on partner, I can jump in quickly and deliver high
+                quality.
               </p>
               <p class="reveal">
-                If you’re building something ambitious, I’ll help you make it real—with polish.
+                If you’re building something ambitious, I’ll help you make it
+                real—with polish.
               </p>
             </div>
 
@@ -167,11 +175,14 @@
             <p class="section-kicker">What I do</p>
             <h2 class="section-title">
               <span class="reveal-word">Services</span>
-              <span class="reveal-word"><span id="ship-type" class="accent">that ship</span></span>
+              <span class="reveal-word"
+                ><span id="ship-type" class="accent">that ship</span></span
+              >
             </h2>
             <div class="ship-underline" aria-hidden="true"></div>
             <p class="section-subtitle reveal">
-              Pick what you need. I can own the whole front-end or plug into your team.
+              Pick what you need. I can own the whole front-end or plug into
+              your team.
             </p>
           </header>
 
@@ -182,7 +193,8 @@
               </div>
               <h3 class="service-title">Front-end Development</h3>
               <p class="service-desc">
-                React/Vue builds, component libraries, and maintainable CSS that scales with your product.
+                React/Vue builds, component libraries, and maintainable CSS that
+                scales with your product.
               </p>
               <ul class="service-points">
                 <li>Reusable components</li>
@@ -197,7 +209,8 @@
               </div>
               <h3 class="service-title">UI Engineering</h3>
               <p class="service-desc">
-                Pixel-precise implementation with typography, spacing, and interaction details that feel premium.
+                Pixel-precise implementation with typography, spacing, and
+                interaction details that feel premium.
               </p>
               <ul class="service-points">
                 <li>Design system setup</li>
@@ -212,7 +225,8 @@
               </div>
               <h3 class="service-title">Performance & SEO</h3>
               <p class="service-desc">
-                Faster pages and better rankings—improve Core Web Vitals without sacrificing design.
+                Faster pages and better rankings—improve Core Web Vitals without
+                sacrificing design.
               </p>
               <ul class="service-points">
                 <li>Audit & quick wins</li>
@@ -227,7 +241,8 @@
               </div>
               <h3 class="service-title">GSAP Motion</h3>
               <p class="service-desc">
-                Scroll-triggered animations that feel smooth, intentional, and performance-friendly.
+                Scroll-triggered animations that feel smooth, intentional, and
+                performance-friendly.
               </p>
               <ul class="service-points">
                 <li>Reveal & stagger systems</li>
@@ -246,16 +261,30 @@
           <header class="section-header">
             <p class="section-kicker">Selected work</p>
             <h2 class="section-title">
-              <span class="reveal-word">Projects</span>
-              <span class="reveal-word accent">I shipped</span>
+              <span class="reveal-word">Projects I </span>
+              <span class="reveal-word accent"
+                ><span id="projects-type">Shipped</span></span
+              >
             </h2>
             <div class="projects-underline" aria-hidden="true"></div>
             <p class="section-subtitle reveal">
-              A few builds across web apps, marketing sites, and interactive experiences.
+              A few builds across web apps, marketing sites, and interactive
+              experiences.
             </p>
           </header>
 
-          <div id="portfolio-grid" class="projects-grid" aria-live="polite"></div>
+          <div
+            id="portfolio-grid"
+            class="projects-grid"
+            aria-live="polite"
+          ></div>
+
+          <div class="load-more-container">
+            <button id="load-more-btn" class="load-more-btn" type="button">
+              Load More Projects
+              <ion-icon name="chevron-down-outline"></ion-icon>
+            </button>
+          </div>
         </section>
       </article>
     </main>
@@ -270,7 +299,12 @@
         aria-modal="true"
         aria-labelledby="project-modal-title"
       >
-        <button class="modal-close" type="button" aria-label="Close project" data-modal-close>
+        <button
+          class="modal-close"
+          type="button"
+          aria-label="Close project"
+          data-modal-close
+        >
           <ion-icon name="close-outline"></ion-icon>
         </button>
 
@@ -286,14 +320,24 @@
         <div class="modal-body">
           <div class="modal-top">
             <h3 id="project-modal-title" class="modal-title"></h3>
-            <a id="project-modal-link" class="modal-link" href="#" target="_blank" rel="noreferrer">
+            <a
+              id="project-modal-link"
+              class="modal-link"
+              href="#"
+              target="_blank"
+              rel="noreferrer"
+            >
               Visit
               <ion-icon name="arrow-forward-outline"></ion-icon>
             </a>
           </div>
 
           <p id="project-modal-meta" class="modal-meta"></p>
-          <div id="project-modal-tech" class="tech-row" aria-label="Technologies used"></div>
+          <div
+            id="project-modal-tech"
+            class="tech-row"
+            aria-label="Technologies used"
+          ></div>
         </div>
       </div>
     </div>
@@ -308,7 +352,7 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/TextPlugin.min.js"></script>
     <!-- GSAP ScrollTo Plugin (for smooth scrolling) -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
-    
+
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
     <script src="https://unpkg.com/lenis@1.2.3/dist/lenis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>

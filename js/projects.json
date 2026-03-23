@@ -213,7 +213,7 @@
     "name": "Stanford touch",
     "url": "http://stanford.touch.joeyai.cloud/",
     "company": "The Brand Factory",
-    "type": "touch",
+    "type": "touchscreen",
     "images": [
       {
         "src": "69-stanford-touchscreen-start-screen.png",
