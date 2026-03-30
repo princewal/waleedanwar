@@ -118,14 +118,16 @@ header {
 
 header .logo {
   color: var(--dark);
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
 }
 
-header .logo img {
+header .logo img,
+header .logo svg {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  display: block;
 }
 
 header ul {
@@ -219,18 +221,6 @@ header ul li a {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(255, 80, 38, 0.4);
   opacity: 0.98;
-}
-
-.content button.chat {
-  background: transparent;
-  color: var(--off-white);
-}
-
-.content button.chat ion-icon {
-  position: relative;
-  top: 5px;
-  color: var(--red);
-  font-size: 1.5em;
 }
 
 .content button.chat {
