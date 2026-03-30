@@ -490,18 +490,26 @@ header ul li a {
 }
 
 .contact-links {
-  display: grid;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
   gap: 18px;
-  grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
-  max-width: 360px;
+  max-width: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .contact-links li {
   list-style: none;
+}
+
+.section--contact .contact-grid {
+  overflow-x: auto;
 }
 
 .contact-icon {
