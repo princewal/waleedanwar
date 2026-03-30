@@ -193,20 +193,32 @@ header ul li a {
   text-align: left;
 }
 
-.content button {
+.content button.hero-hire {
   position: relative;
   background: var(--red);
   color: white;
   border: none;
   outline: none;
-  padding: 15px 35px;
-  font-size: 1.2em;
+  padding: 14px 32px;
+  font-size: 1.15em;
   letter-spacing: 0.05em;
   margin-right: 20px;
-  border-radius: 4px;
+  border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.5s;
+  opacity: 1;
+  box-shadow: 0 6px 18px rgba(255, 81, 30, 0.2);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.content button.hero-hire:hover,
+.content button.hero-hire:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 80, 38, 0.4);
+  opacity: 0.98;
 }
 
 .content button.chat {
@@ -221,74 +233,23 @@ header ul li a {
   font-size: 1.5em;
 }
 
-.sci {
-  position: absolute;
-  bottom: 30px;
-  display: flex;
-  gap: 20px;
+.content button.chat {
+  background: transparent;
+  color: var(--off-white);
 }
 
-.sci li {
-  list-style-type: none;
-}
-
-.sci li a {
-  text-decoration: none;
-  font-size: 1.75em;
-  color: var(--dark);
-}
-
-.sci li a:hover {
-  color: var(--blue);
-}
-
-.dayNight {
-  position: absolute;
-  bottom: 25px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 60px;
-  background: var(--off-white);
-  border-radius: 50%;
-  color: var(--dark-gray);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: 0.5s;
-  font-size: 2em;
-}
-
-.banner.night .dayNight {
-  background: var(--dark-2);
-  color: white;
-}
-
-.dayNight ion-icon:nth-child(2),
-.banner.night .dayNight ion-icon:nth-child(1) {
-  display: none;
-}
-
-.banner.night .dayNight ion-icon:nth-child(2) {
-  display: block;
-}
-
-.banner.night .dayNight ion-icon:nth-child(1) {
-  display: none;
+.content button.chat ion-icon {
+  position: relative;
+  top: 5px;
+  color: var(--red);
+  font-size: 1.5em;
 }
 
 .banner.night header .logo,
 .banner.night .content h2,
 .banner.night .content p,
-.banner.night .content button.chat,
-.banner.night .sci li a,
 .banner.night header ul li a {
   color: white;
-}
-
-.banner.night .sci li a:hover {
-  color: var(--blue);
 }
 
 [class$="-logo"] {
@@ -517,6 +478,82 @@ header ul li a {
   );
   box-shadow: 0 12px 40px rgba(227, 76, 38, 0.22);
   transform-origin: left center;
+}
+
+.section--contact .section-title {
+  margin-bottom: 8px;
+}
+
+.contact-underline,
+.ship-underline,
+.about-underline,
+.projects-underline {
+  width: min(220px, 40vw);
+}
+
+.section--contact .contact-grid {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-links {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+  max-width: 360px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact-links li {
+  list-style: none;
+}
+
+.contact-icon {
+  width: 76px;
+  height: 76px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.06)
+  );
+  color: #fff;
+  text-decoration: none;
+  box-shadow:
+    inset 1px 1px 4px rgba(0, 0, 0, 0.15),
+    inset -1px -1px 6px rgba(255, 255, 255, 0.08),
+    0 16px 28px rgba(0, 0, 0, 0.25);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.contact-icon ion-icon {
+  font-size: 1.9rem;
+}
+
+.contact-icon:hover,
+.contact-icon:focus-visible {
+  transform: translateY(-3px);
+  box-shadow:
+    inset 1px 1px 4px rgba(0, 0, 0, 0.15),
+    inset -1px -1px 6px rgba(255, 255, 255, 0.12),
+    0 22px 30px rgba(0, 0, 0, 0.32);
+}
+
+.contact-icon:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 4px;
 }
 
 .section-header .typed-cursor {

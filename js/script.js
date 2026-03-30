@@ -2,21 +2,11 @@
 gsap.registerPlugin(ScrollTrigger, TextPlugin, ScrollToPlugin);
 
 let body = document.body;
-let dayNight = document.querySelector(".dayNight");
 
 // Load more functionality variables
 let allProjects = [];
 let projectsShown = 0;
 const projectsPerLoad = 6;
-
-dayNight.onclick = function () {
-  body.classList.toggle("night");
-  // Also toggle banner class for night mode
-  const banner = document.querySelector(".banner");
-  if (banner) {
-    banner.classList.toggle("night");
-  }
-};
 
 let typingEffect = new Typed("#text", {
   strings: ["Waleed", "a Developer", "a Coder", "a Lead"],
@@ -126,6 +116,37 @@ function stopProjectsTypingEffect() {
   if (el) el.textContent = "Develped";
 }
 
+let contactTypingEffect = null;
+
+function startContactTypingEffect() {
+  if (contactTypingEffect) return;
+  if (prefersReducedMotion()) return;
+  if (typeof Typed === "undefined") return;
+
+  const el = document.querySelector("#contact-type");
+  if (!el) return;
+
+  contactTypingEffect = new Typed("#contact-type", {
+    strings: ["talk", "chat", "connect"],
+    loop: true,
+    typeSpeed: 70,
+    backSpeed: 32,
+    backDelay: 1400,
+    smartBackspace: true,
+    showCursor: true,
+    cursorChar: "|",
+  });
+}
+
+function stopContactTypingEffect() {
+  if (!contactTypingEffect) return;
+  contactTypingEffect.destroy();
+  contactTypingEffect = null;
+
+  const el = document.querySelector("#contact-type");
+  if (el) el.textContent = "talk";
+}
+
 // Lenis smooth scroll (must run before GSAP so ScrollTrigger uses Lenis scroll)
 let lenis = null;
 
@@ -166,8 +187,10 @@ function initGSAPAnimations() {
       });
     }
 
-    // Animate buttons with stagger
-    const buttons = document.querySelectorAll(".banner .content button");
+    // Animate buttons with stagger (exclude hero button so it stays visible immediately)
+    const buttons = document.querySelectorAll(
+      ".banner .content button:not(.hero-hire)",
+    );
     if (buttons.length > 0) {
       gsap.from(buttons, {
         opacity: 0,
@@ -177,6 +200,13 @@ function initGSAPAnimations() {
         ease: "power2.out",
         delay: 0.5,
       });
+    }
+
+    const heroHireBtn = document.querySelector(".banner .content .hero-hire");
+    if (heroHireBtn) {
+      heroHireBtn.style.opacity = "1";
+      heroHireBtn.style.visibility = "visible";
+      heroHireBtn.style.transform = "translateY(0)";
     }
   }
 
@@ -202,31 +232,6 @@ function initGSAPAnimations() {
         ease: "power1.inOut",
         delay: index * 0.1,
       });
-    });
-  }
-
-  // Animate social icons
-  const socialIcons = document.querySelectorAll(".sci li");
-  if (socialIcons.length > 0) {
-    gsap.from(socialIcons, {
-      opacity: 0,
-      x: 30,
-      duration: 0.6,
-      stagger: 0.1,
-      ease: "power2.out",
-      delay: 1,
-    });
-  }
-
-  // Animate day/night toggle button
-  const dayNightBtn = document.querySelector(".dayNight");
-  if (dayNightBtn) {
-    gsap.from(dayNightBtn, {
-      opacity: 0,
-      scale: 0,
-      duration: 0.8,
-      ease: "back.out(1.7)",
-      delay: 1.2,
     });
   }
 
@@ -550,6 +555,69 @@ function initGSAPAnimations() {
     });
   }
 
+  const contactSection = document.querySelector("#contact");
+  if (contactSection) {
+    gsap.from("#contact .bg-word", {
+      scrollTrigger: {
+        trigger: "#contact",
+        start: "top 85%",
+        toggleActions: "play none none reverse",
+      },
+      opacity: 0,
+      y: 30,
+      duration: 0.85,
+      ease: "power2.out",
+    });
+
+    gsap.from("#contact .reveal", {
+      scrollTrigger: {
+        trigger: "#contact",
+        start: "top 78%",
+        toggleActions: "play none none reverse",
+      },
+      opacity: 0,
+      y: 30,
+      duration: 0.7,
+      stagger: 0.1,
+      ease: "power3.out",
+    });
+
+    const contactTypingTrigger = ScrollTrigger.create({
+      trigger: "#contact",
+      start: "top 60%",
+      end: "bottom 40%",
+      onEnter: startContactTypingEffect,
+      onEnterBack: startContactTypingEffect,
+      onLeave: stopContactTypingEffect,
+      onLeaveBack: stopContactTypingEffect,
+    });
+
+    if (contactTypingTrigger && contactTypingTrigger.isActive)
+      startContactTypingEffect();
+  }
+
+  // Ensure bg-word motion works for all sections
+  const sectionBgWords = document.querySelectorAll(".section .bg-word");
+  sectionBgWords.forEach((bgWord, idx) => {
+    const direction = idx % 2 === 0 ? "-16%" : "16%";
+    gsap.fromTo(
+      bgWord,
+      { x: "0%", opacity: 0.55, scale: 1 },
+      {
+        x: direction,
+        opacity: 0.16,
+        scale: 1.03,
+        ease: "none",
+        scrollTrigger: {
+          trigger: bgWord.closest(".section"),
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      },
+    );
+  });
+
   // Header animation on scroll
   const header = document.querySelector(".header-top");
   if (header) {
@@ -689,30 +757,6 @@ function initButtonAnimations() {
         scale: 1,
         duration: 0.3,
         ease: "power2.out",
-      });
-    });
-  });
-}
-
-// Add hover animations to social icons
-function initSocialIconAnimations() {
-  const socialLinks = document.querySelectorAll(".sci li a");
-  socialLinks.forEach((link) => {
-    link.addEventListener("mouseenter", function () {
-      gsap.to(this, {
-        scale: 1.2,
-        rotation: 360,
-        duration: 0.5,
-        ease: "back.out(1.7)",
-      });
-    });
-
-    link.addEventListener("mouseleave", function () {
-      gsap.to(this, {
-        scale: 1,
-        rotation: 0,
-        duration: 0.5,
-        ease: "back.out(1.7)",
       });
     });
   });
@@ -924,6 +968,14 @@ function fillUpPortfolio(portfolio, limit = null) {
 
   grid.innerHTML = "";
 
+  if (!projectsToShow || projectsToShow.length === 0) {
+    grid.innerHTML =
+      "<p class='no-projects'>No projects available right now. Please check back soon.</p>";
+    const loadMoreBtn = document.querySelector("#load-more-btn");
+    if (loadMoreBtn) loadMoreBtn.classList.add("hidden");
+    return;
+  }
+
   // Ensure modal elements are cached and close handlers are bound once
   const modalRoot = document.querySelector("#project-modal");
   if (modalRoot && !modalRoot.dataset.bound) {
@@ -1025,7 +1077,6 @@ window.addEventListener("DOMContentLoaded", function (e) {
   initLenis();
   initGSAPAnimations();
   initButtonAnimations();
-  initSocialIconAnimations();
   initSmoothScrollBehavior();
 
   fetchPortfolio()
