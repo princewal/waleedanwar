@@ -38,15 +38,8 @@
         "comment": "list of homes in a community"
       }
     ],
-    "technology": [
-      "html5",
-      "css",
-      "scss",
-      "js",
-      "jquery",
-      "slick slider",
-      "fancybox"
-    ]
+    "technology": ["html5", "SCSS", "js", "JQuery"],
+    "other_technology": ["slick slider", "fancybox"]
   },
   {
     "name": "Neff Living",
@@ -67,7 +60,8 @@
         "comment": "nav open and hover effect"
       }
     ],
-    "technology": ["html5", "css", "scss", "js", "fancybox", "swiper slider"]
+    "technology": ["html5", "SCSS", "js"],
+    "other_technology": ["slick slider", "fancybox"]
   },
   {
     "name": "elad canada",
@@ -133,6 +127,10 @@
       {
         "src": "veraine-nav.jpg",
         "comment": "navigation"
+      },
+      {
+        "src": "veraine-expanded-calendar.jpg",
+        "comment": "expanded calendar"
       }
     ],
     "technology": ["html5", "css", "scss", "js"]
@@ -210,6 +208,23 @@
     "technology": ["html5", "purecss.io", "scss", "js", "vue"]
   },
   {
+    "name": "Jerry Hammond",
+    "url": "http://www.hammondinternationalproperties.com/",
+    "company": "The Brand Factory",
+    "type": "web",
+    "images": [
+      {
+        "src": "hammond-header.webp",
+        "comment": "hammond hero section"
+      },
+      {
+        "src": "hammond-properties.webp",
+        "comment": "hammond properties"
+      }
+    ],
+    "technology": ["html5", "purecss.io", "js", "foundation"]
+  },
+  {
     "name": "Stanford touch",
     "url": "http://stanford.touch.joeyai.cloud/",
     "company": "The Brand Factory",
@@ -234,6 +249,60 @@
       {
         "src": "69-stanford-screensaver.png",
         "comment": "screensaver"
+      }
+    ],
+    "technology": ["html5", "purecss.io", "scss", "js", "vue"]
+  },
+  {
+    "name": "Stantec touch",
+    "url": "http://stanford.touch.joeyai.cloud/",
+    "company": "The Brand Factory",
+    "type": "touchscreen",
+    "images": [
+      {
+        "src": "stantec-home.webp",
+        "comment": "Start page"
+      },
+      {
+        "src": "stantec-list.webp",
+        "comment": "list of models"
+      },
+      {
+        "src": "stantec-floorplan.webp",
+        "comment": "floorplan details"
+      }
+    ],
+    "technology": ["html5", "scss", "js", "vue"]
+  },
+  {
+    "name": "SXSW 28 Eastern Corktown",
+    "url": null,
+    "company": "The Brand Factory",
+    "type": "touchscreen",
+    "images": [
+      {
+        "src": "28-eastern-district-corktown.jpg",
+        "comment": "Start page"
+      },
+      {
+        "src": "28-eastern-outdoor.jpg",
+        "comment": "outdoor living"
+      },
+      {
+        "src": "28-eastern-select.jpg",
+        "comment": "list of models"
+      },
+      {
+        "src": "28-eastern-floorplan.jpg",
+        "comment": "floorplan details"
+      },
+      {
+        "src": "28-eastern-building-amenities.jpg",
+        "comment": "Building Amenities"
+      },
+      {
+        "src": "28-eastern-transit.jpg",
+        "comment": "transit location"
       }
     ],
     "technology": ["html5", "purecss.io", "scss", "js", "vue"]

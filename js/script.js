@@ -26,12 +26,17 @@ function prefersReducedMotion() {
 }
 
 function startShipTypingEffect() {
-  if (shipTypingEffect) return;
   if (prefersReducedMotion()) return;
   if (typeof Typed === "undefined") return;
 
   const el = document.querySelector("#ship-type");
   if (!el) return;
+
+  // Destroy existing instance to ensure fresh start
+  if (shipTypingEffect) {
+    shipTypingEffect.destroy();
+    shipTypingEffect = null;
+  }
 
   shipTypingEffect = new Typed("#ship-type", {
     strings: ["that ship", "that scale", "that convert"],
@@ -57,12 +62,17 @@ function stopShipTypingEffect() {
 let aboutTypingEffect = null;
 
 function startAboutTypingEffect() {
-  if (aboutTypingEffect) return;
   if (prefersReducedMotion()) return;
   if (typeof Typed === "undefined") return;
 
   const el = document.querySelector("#about-type");
   if (!el) return;
+
+  // Destroy existing instance to ensure fresh start
+  if (aboutTypingEffect) {
+    aboutTypingEffect.destroy();
+    aboutTypingEffect = null;
+  }
 
   aboutTypingEffect = new Typed("#about-type", {
     strings: ["Vision", "Optimization", "People", "Passion"],
@@ -88,12 +98,17 @@ function stopAboutTypingEffect() {
 let projectsTypingEffect = null;
 
 function startProjectsTypingEffect() {
-  if (projectsTypingEffect) return;
   if (prefersReducedMotion()) return;
   if (typeof Typed === "undefined") return;
 
   const el = document.querySelector("#projects-type");
   if (!el) return;
+
+  // Destroy existing instance to ensure fresh start
+  if (projectsTypingEffect) {
+    projectsTypingEffect.destroy();
+    projectsTypingEffect = null;
+  }
 
   projectsTypingEffect = new Typed("#projects-type", {
     strings: ["Built", "Developed", "Launched"],
@@ -113,18 +128,23 @@ function stopProjectsTypingEffect() {
   projectsTypingEffect = null;
 
   const el = document.querySelector("#projects-type");
-  if (el) el.textContent = "Develped";
+  if (el) el.textContent = "Shipped";
 }
 
 let contactTypingEffect = null;
 
 function startContactTypingEffect() {
-  if (contactTypingEffect) return;
   if (prefersReducedMotion()) return;
   if (typeof Typed === "undefined") return;
 
   const el = document.querySelector("#contact-type");
   if (!el) return;
+
+  // Destroy existing instance to ensure fresh start
+  if (contactTypingEffect) {
+    contactTypingEffect.destroy();
+    contactTypingEffect = null;
+  }
 
   contactTypingEffect = new Typed("#contact-type", {
     strings: ["talk", "chat", "connect"],
@@ -162,6 +182,28 @@ function initLenis() {
   });
   gsap.ticker.lagSmoothing(0);
 }
+
+// Enforce minimum opacity of 0.5 for all typed elements
+function enforceMinimumOpacity() {
+  const typedElements = [
+    document.querySelector("#about-type"),
+    document.querySelector("#ship-type"),
+    document.querySelector("#projects-type"),
+    document.querySelector("#contact-type"),
+  ];
+
+  typedElements.forEach((el) => {
+    if (el) {
+      const currentOpacity = parseFloat(window.getComputedStyle(el).opacity);
+      if (currentOpacity < 0.5) {
+        gsap.set(el, { opacity: 0.5 });
+      }
+    }
+  });
+}
+
+// Run opacity enforcement on every frame
+gsap.ticker.add(enforceMinimumOpacity);
 
 // GSAP Animations
 function initGSAPAnimations() {
@@ -267,7 +309,7 @@ function initGSAPAnimations() {
         start: "top 78%",
         toggleActions: "play none none reverse",
       },
-      opacity: 0,
+      opacity: 0.5,
       y: 50,
       duration: 0.9,
       stagger: 0.08,
@@ -305,7 +347,7 @@ function initGSAPAnimations() {
         start: "top 78%",
         toggleActions: "play none none reverse",
       },
-      opacity: 0,
+      opacity: 0.5,
       y: 10,
       duration: 0.7,
       ease: "power2.out",
@@ -370,7 +412,7 @@ function initGSAPAnimations() {
         start: "top 78%",
         toggleActions: "play none none reverse",
       },
-      opacity: 0,
+      opacity: 0.5,
       y: 50,
       duration: 0.9,
       stagger: 0.08,
@@ -408,13 +450,13 @@ function initGSAPAnimations() {
         start: "top 78%",
         toggleActions: "play none none reverse",
       },
-      opacity: 0,
+      opacity: 0.5,
       y: 10,
       duration: 0.7,
       ease: "power2.out",
     });
 
-    ScrollTrigger.create({
+    const shipTypingSr = ScrollTrigger.create({
       trigger: "#services",
       start: "top 75%",
       end: "bottom 20%",
@@ -423,6 +465,8 @@ function initGSAPAnimations() {
       onLeave: stopShipTypingEffect,
       onLeaveBack: stopShipTypingEffect,
     });
+
+    if (shipTypingSr && shipTypingSr.isActive) startShipTypingEffect();
 
     gsap.from("#services .service-card", {
       scrollTrigger: {
@@ -486,7 +530,7 @@ function initGSAPAnimations() {
         start: "top 78%",
         toggleActions: "play none none reverse",
       },
-      opacity: 0,
+      opacity: 0.5,
       y: 50,
       duration: 0.9,
       stagger: 0.08,
@@ -524,13 +568,13 @@ function initGSAPAnimations() {
         start: "top 78%",
         toggleActions: "play none none reverse",
       },
-      opacity: 0,
+      opacity: 0.5,
       y: 10,
       duration: 0.7,
       ease: "power2.out",
     });
 
-    ScrollTrigger.create({
+    const projectsTypingSr = ScrollTrigger.create({
       trigger: "#portfolio",
       start: "top 75%",
       end: "bottom 20%",
@@ -539,6 +583,9 @@ function initGSAPAnimations() {
       onLeave: stopProjectsTypingEffect,
       onLeaveBack: stopProjectsTypingEffect,
     });
+
+    if (projectsTypingSr && projectsTypingSr.isActive)
+      startProjectsTypingEffect();
 
     gsap.from("#portfolio .project-card", {
       scrollTrigger: {
@@ -774,42 +821,86 @@ function techIconFor(tech) {
   if (t === "js" || t === "javascript") return "./images/js.svg";
   if (t === "react" || t === "reactjs") return "./images/react.svg";
   if (t === "vue" || t === "vuejs") return "./images/vue.svg";
-  return null;
+  if (t === "scss" || t === "sass") return "./images/scss.svg";
+  if (t === "jquery") return "./images/jquery.svg";
+  if (t === "bootstrap") return "./images/bootstrap.svg";
+  if (t === "fancybox") return "./images/fancybox.svg";
+  if (t === "swiper" || t === "swiper slider") return "./images/swiper.svg";
+  if (t === "purecss" || t === "purecss.io") return "./images/purecss.svg";
+  if (t === "node" || t === "nodejs") return "./images/node.svg";
+  if (t === "typescript" || t === "ts") return "./images/typescript.svg";
+  // fallback: custom path by technology name (try to match existing images)
+  const candidate = `./images/${t.replace(/\s+/g, "-")}.svg`;
+  return candidate;
 }
 
 function formatTechLabel(tech) {
   const t = normalizeTech(tech);
   if (t === "html5") return "HTML5";
-  if (t === "css") return "CSS";
-  if (t === "css3") return "CSS";
-  if (t === "js") return "JavaScript";
+  if (t === "css" || t === "css3") return "CSS";
+  if (t === "js" || t === "javascript") return "JavaScript";
+  if (t === "jquery" || t === "j-query") return "jQuery";
+  if (t === "scss") return "SCSS";
+  if (t === "sass") return "Sass";
   if (t === "vue") return "Vue";
   if (t === "react") return "React";
+  if (t === "node" || t === "nodejs" || t === "node.js") return "Node.js";
+  if (t === "typescript" || t === "ts") return "TypeScript";
+  if (t === "bootstrap") return "Bootstrap";
+  if (t === "next" || t === "nextjs" || t === "next.js") return "Next.js";
+  if (t === "nuxt" || t === "nuxtjs" || t === "nuxt.js") return "Nuxt.js";
+  if (t === "angular") return "Angular";
+  if (t === "reactnative" || t === "react-native") return "React Native";
+  if (t === "tailwind") return "Tailwind CSS";
+  if (t === "graphql") return "GraphQL";
+  if (t === "prismic") return "Prismic";
+  if (t === "fancybox") return "Fancybox";
+  if (t === "swiper") return "Swiper";
   if (!t) return "";
-  return tech;
+  // capital case words using spaces / hyphen split if needed
+  return t
+    .split(/[-\s]+/)
+    .map((word) => word[0]?.toUpperCase() + word.slice(1))
+    .join(" ");
 }
 
-function buildTechIconList(technologyList) {
-  // Rule:
-  // - Use technology[] to show icons
-  // - Skip entries with no icon mapping
-  // - If technology[] missing/empty OR none of the entries map to an icon => default HTML/CSS/JS
-  const defaultTech = ["html5", "css", "js"];
-
+function getTechItems(technologyList) {
   if (!Array.isArray(technologyList) || technologyList.length === 0) {
-    return defaultTech;
+    return [];
   }
 
-  const normalized = technologyList.map(normalizeTech);
-  const uniq = [];
+  const items = [];
   const seen = new Set();
-  for (const t of normalized) {
-    if (!t || seen.has(t)) continue;
-    seen.add(t);
-    if (techIconFor(t)) uniq.push(t);
+  for (let tech of technologyList) {
+    if (!tech || typeof tech !== "string") continue;
+    tech = tech.trim();
+    if (!tech) continue;
+    const normalized = normalizeTech(tech);
+    if (seen.has(normalized)) continue;
+    seen.add(normalized);
+    items.push({
+      raw: tech,
+      key: normalized,
+      icon: techIconFor(normalized),
+    });
+  }
+  return items;
+}
+
+function buildTechHtml(techItems) {
+  if (!Array.isArray(techItems) || techItems.length === 0) {
+    return "";
   }
 
-  return uniq.length > 0 ? uniq : defaultTech;
+  return techItems
+    .map(({ raw, key, icon }) => {
+      const label = formatTechLabel(key || raw);
+      const iconHtml = icon
+        ? `<img src="${icon}" alt="${label}" aria-hidden="true" loading="lazy" decoding="async" />`
+        : "";
+      return `<span class="tech-pill">${iconHtml}${label}</span>`;
+    })
+    .join("");
 }
 
 function projectImageSrc(project) {
@@ -840,6 +931,11 @@ const modalEls = {
   closeBtn: null,
   hero: null,
   body: null,
+  carouselContainer: null,
+  carouselImages: null,
+  carouselTitle: null,
+  carouselPrev: null,
+  carouselNext: null,
 };
 
 function getModalEls() {
@@ -857,6 +953,11 @@ function getModalEls() {
   );
   modalEls.hero = document.querySelector("#project-modal .modal-hero");
   modalEls.body = document.querySelector("#project-modal .modal-body");
+  modalEls.carouselContainer = document.querySelector("#carousel-container");
+  modalEls.carouselImages = document.querySelector("#carousel-images");
+  modalEls.carouselTitle = document.querySelector("#carousel-title");
+  modalEls.carouselPrev = document.querySelector("#carousel-prev");
+  modalEls.carouselNext = document.querySelector("#carousel-next");
   return modalEls;
 }
 
@@ -864,11 +965,23 @@ function openProjectModal(project) {
   const els = getModalEls();
   if (!els.root || !els.dialog) return;
 
-  // Fill content
-  const imgSrc = projectImageSrc(project);
-  els.img.src = imgSrc;
-  els.img.alt = projectImageAlt(project);
-  els.img.decoding = "async";
+  // Check if project has multiple images
+  const hasMultipleImages = project?.images && project.images.length > 1;
+
+  if (hasMultipleImages) {
+    // Setup carousel
+    setupCarousel(project);
+    els.carouselContainer.style.display = "flex";
+    els.img.style.display = "none";
+  } else {
+    // Show single image
+    const imgSrc = projectImageSrc(project);
+    els.img.src = imgSrc;
+    els.img.alt = projectImageAlt(project);
+    els.img.decoding = "async";
+    els.img.style.display = "block";
+    els.carouselContainer.style.display = "none";
+  }
 
   els.title.textContent = project?.name || "Project";
   els.link.href = project?.url || "#";
@@ -878,14 +991,8 @@ function openProjectModal(project) {
   const type = project?.type ? String(project.type).toUpperCase() : "";
   els.meta.textContent = [company, type].filter(Boolean).join(" • ");
 
-  const techList = buildTechIconList(project?.technology);
-  els.tech.innerHTML = techList
-    .map((t) => {
-      const icon = techIconFor(t);
-      if (!icon) return "";
-      return `<span class="tech-pill"><img src="${icon}" alt="" aria-hidden="true" loading="lazy" decoding="async" />${formatTechLabel(t)}</span>`;
-    })
-    .join("");
+  const techItems = getTechItems(project?.technology);
+  els.tech.innerHTML = buildTechHtml(techItems);
 
   els.root.classList.add("is-open");
   els.root.setAttribute("aria-hidden", "false");
@@ -924,10 +1031,129 @@ function openProjectModal(project) {
   if (els.closeBtn) els.closeBtn.focus();
 }
 
+let currentCarouselIndex = 0;
+let carouselImages = [];
+let carouselPrevHandler, carouselNextHandler;
+
+function setupCarousel(project) {
+  const els = getModalEls();
+  const type = normalizeTech(project?.type) || "web";
+  carouselImages = project.images || [];
+  currentCarouselIndex = 0;
+
+  // Clear existing images
+  els.carouselImages.innerHTML = "";
+
+  // Remove existing event listeners
+  if (carouselPrevHandler) {
+    els.carouselPrev.removeEventListener("click", carouselPrevHandler);
+  }
+  if (carouselNextHandler) {
+    els.carouselNext.removeEventListener("click", carouselNextHandler);
+  }
+
+  // Add images to carousel
+  carouselImages.forEach((image, index) => {
+    const img = document.createElement("img");
+    img.src = `./images/${type}/${image.src}`;
+    img.alt = image.comment || `${project.name} image ${index + 1}`;
+    img.loading = "lazy";
+    img.decoding = "async";
+    els.carouselImages.appendChild(img);
+  });
+
+  // Set initial position
+  gsap.set(els.carouselImages, { x: 0 });
+
+  // Set initial title
+  updateCarouselTitle(true);
+
+  // Make sure title is visible initially
+  gsap.set(els.carouselTitle, { opacity: 1, y: 0 });
+
+  // Setup navigation
+  carouselPrevHandler = () => navigateCarousel(-1);
+  carouselNextHandler = () => navigateCarousel(1);
+  els.carouselPrev.addEventListener("click", carouselPrevHandler);
+  els.carouselNext.addEventListener("click", carouselNextHandler);
+
+  // Update button states
+  updateCarouselButtons();
+}
+
+function navigateCarousel(direction) {
+  const els = getModalEls();
+  const maxIndex = carouselImages.length - 1;
+  const newIndex = Math.max(
+    0,
+    Math.min(maxIndex, currentCarouselIndex + direction),
+  );
+
+  if (newIndex === currentCarouselIndex) return;
+
+  // Animate title out
+  gsap.to(els.carouselTitle, {
+    opacity: 0,
+    y: 20,
+    duration: 0.2,
+    ease: "power2.in",
+    onComplete: () => {
+      currentCarouselIndex = newIndex;
+      updateCarouselTitle();
+      // Animate carousel
+      gsap.to(els.carouselImages, {
+        x: `-${currentCarouselIndex * 100}%`,
+        duration: 0.3,
+        ease: "power2.out",
+      });
+      updateCarouselButtons();
+    },
+  });
+}
+
+function toTitleCase(str) {
+  if (!str) return "";
+  return str.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function updateCarouselTitle(immediate = false) {
+  const els = getModalEls();
+  const currentImage = carouselImages[currentCarouselIndex];
+  els.carouselTitle.textContent = toTitleCase(currentImage?.comment || "");
+
+  if (immediate) {
+    gsap.set(els.carouselTitle, { opacity: 1, y: 0 });
+  } else {
+    // Animate title in
+    gsap.set(els.carouselTitle, { opacity: 0, y: 20 });
+    gsap.to(els.carouselTitle, {
+      opacity: 1,
+      y: 0,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  }
+}
+
+function updateCarouselButtons() {
+  const els = getModalEls();
+  const maxIndex = carouselImages.length - 1;
+
+  els.carouselPrev.disabled = currentCarouselIndex === 0;
+  els.carouselNext.disabled = currentCarouselIndex === maxIndex;
+}
+
 function closeProjectModal() {
   const els = getModalEls();
   if (!els.root || !els.dialog) return;
   if (!els.root.classList.contains("is-open")) return;
+
+  // Reset carousel
+  currentCarouselIndex = 0;
+  carouselImages = [];
+  if (els.carouselImages) {
+    gsap.set(els.carouselImages, { x: 0 });
+  }
 
   const finish = () => {
     els.root.classList.remove("is-open");
@@ -992,15 +1218,8 @@ function fillUpPortfolio(portfolio, limit = null) {
   }
 
   projectsToShow.forEach((project, idx) => {
-    const techList = buildTechIconList(project?.technology);
-    const techHtml = techList
-      .map((t) => {
-        const icon = techIconFor(t);
-        const label = formatTechLabel(t);
-        if (!icon) return "";
-        return `<span class="tech-pill"><img src="${icon}" alt="" aria-hidden="true" loading="lazy" decoding="async" />${label}</span>`;
-      })
-      .join("");
+    const techItems = getTechItems(project?.technology);
+    const techHtml = buildTechHtml(techItems);
 
     const imgSrc = projectImageSrc(project);
     const imgAlt = projectImageAlt(project);

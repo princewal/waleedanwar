@@ -54,7 +54,7 @@ body {
 h2 {
   font-family: var(--header-text);
   font-weight: 700;
-  font-size: 4.5em;
+  font-size: clamp(2rem, 5vw, 4.5rem);
   color: var(--red);
 }
 
@@ -74,17 +74,28 @@ img {
   max-width: 1440px;
   width: 100%;
   margin: 0 auto;
-  padding: 20px 50px;
+  padding: clamp(16px, 4vw, 50px);
 }
 
 .banner {
   position: relative;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  text-align: center;
   min-height: 100vh;
-  padding: 100px;
+  padding: clamp(40px, 8vw, 100px);
   transition: 0.5s;
+}
+
+@media screen and (min-width: 768px) {
+  .banner {
+    flex-direction: row;
+    text-align: left;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
 header {
@@ -93,10 +104,11 @@ header {
 }
 
 .header-top {
-  padding: 20px 100px;
+  padding: clamp(16px, 3vw, 20px) clamp(16px, 5vw, 100px);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
   background-color: rgba(102, 102, 102, 0.2);
 }
 
@@ -142,7 +154,7 @@ header ul li {
 header ul li a {
   text-decoration: none;
   font-weight: 700;
-  font-size: 1.5em;
+  font-size: clamp(0.9em, 2vw, 1.5em);
   color: var(--red);
 }
 
@@ -150,10 +162,11 @@ header ul li a {
   position: relative;
   max-width: 700px;
   z-index: 10;
+  width: 100%;
 }
 
 .content .starter {
-  font-size: 2em;
+  font-size: clamp(1.2em, 3vw, 2em);
   color: var(--dark);
   font-weight: 400;
   transition: 0.5s;
@@ -162,7 +175,7 @@ header ul li a {
 .content h1 {
   font-family: var(--header-text);
   font-weight: 700;
-  font-size: 4.5em;
+  font-size: clamp(2rem, 6vw, 4.5em);
   color: var(--off-white);
   transition: 0.5s;
 }
@@ -188,7 +201,7 @@ header ul li a {
 }
 
 .content p {
-  font-size: 1.2em;
+  font-size: clamp(1em, 2.5vw, 1.2em);
   margin: 10px 0;
   padding: 0;
   transition: 0.5s;
@@ -201,10 +214,10 @@ header ul li a {
   color: white;
   border: none;
   outline: none;
-  padding: 14px 32px;
-  font-size: 1.15em;
+  padding: clamp(10px, 2vw, 14px) clamp(16px, 4vw, 32px);
+  font-size: clamp(0.9em, 2vw, 1.15em);
   letter-spacing: 0.05em;
-  margin-right: 20px;
+  margin-right: clamp(8px, 2vw, 20px);
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
@@ -414,6 +427,7 @@ header ul li a {
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: rgba(240, 240, 240, 0.75);
+  font-size: clamp(0.75em, 1.5vw, 1em);
 }
 
 .section-title {
@@ -433,7 +447,12 @@ header ul li a {
 }
 
 .section-title .accent {
-  background: linear-gradient(135deg, var(--red), #ff7a59, #ffcc70);
+  background: linear-gradient(
+    135deg,
+    rgba(227, 76, 38, 0.7),
+    rgba(255, 122, 89, 0.7),
+    rgba(255, 204, 112, 0.7)
+  );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -491,17 +510,23 @@ header ul li a {
 
 .contact-links {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 18px;
+  gap: clamp(12px, 3vw, 18px);
   max-width: 100%;
   width: 100%;
   margin: 0;
-  padding: 0;
+  padding: clamp(8px, 2vw, 16px);
   list-style: none;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+}
+
+@media screen and (max-width: 480px) {
+  .contact-links {
+    flex-wrap: nowrap;
+  }
 }
 
 .contact-links li {
@@ -513,8 +538,8 @@ header ul li a {
 }
 
 .contact-icon {
-  width: 76px;
-  height: 76px;
+  width: clamp(56px, 12vw, 76px);
+  height: clamp(56px, 12vw, 76px);
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -537,7 +562,7 @@ header ul li a {
 }
 
 .contact-icon ion-icon {
-  font-size: 1.9rem;
+  font-size: clamp(1.2rem, 3vw, 1.9rem);
 }
 
 .contact-icon:hover,
@@ -564,8 +589,9 @@ header ul li a {
   margin: 14px 0 0 0;
   padding: 0;
   max-width: 70ch;
-  font-size: 1.15em;
+  font-size: clamp(0.95em, 2.2vw, 1.15em);
   color: rgba(240, 240, 240, 0.78);
+  line-height: 1.6;
 }
 
 .about-grid {
@@ -604,7 +630,7 @@ header ul li a {
 .stat-number {
   font-family: var(--header-text);
   font-weight: 900;
-  font-size: 2.2em;
+  font-size: clamp(1.6em, 4vw, 2.2em);
   letter-spacing: -0.03em;
   color: var(--off-white);
 }
@@ -694,13 +720,13 @@ header ul li a {
   letter-spacing: -0.01em;
   margin: 0;
   color: var(--off-white);
-  font-size: 1.35em;
+  font-size: clamp(1.1em, 3vw, 1.35em);
 }
 
 .project-meta {
   margin-top: 6px;
   color: rgba(240, 240, 240, 0.72);
-  font-size: 0.98em;
+  font-size: clamp(0.9em, 1.8vw, 0.98em);
 }
 
 .tech-row {
@@ -857,6 +883,99 @@ header ul li a {
   display: block;
 }
 
+/* Carousel styles */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carousel-images {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.carousel-images img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.carousel-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: white;
+  padding: 20px;
+  font-size: 1.2em;
+  font-weight: 600;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.carousel-title.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.carousel-arrow:hover {
+  background: rgba(0, 0, 0, 0.7);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.carousel-prev {
+  left: 20px;
+}
+
+.carousel-next {
+  right: 20px;
+}
+
+.carousel-arrow ion-icon {
+  font-size: 1.5em;
+}
+
+.carousel-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
 .modal-body {
   padding: 18px 18px 22px 18px;
 }
@@ -903,6 +1022,105 @@ header ul li a {
 @media screen and (min-width: 1200px) {
   .projects-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Mobile responsive utilities */
+@media screen and (max-width: 480px) {
+  .banner {
+    min-height: auto;
+    padding: clamp(24px, 5vw, 40px);
+  }
+
+  .content h1 {
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .content button.hero-hire {
+    display: block;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 12px;
+  }
+
+  .content button.hero-hire + button {
+    width: 100%;
+  }
+
+  .section-header {
+    max-width: 100%;
+    padding: 0 clamp(16px, 3vw, 20px);
+  }
+
+  .about-grid {
+    gap: 20px;
+  }
+
+  .about-stats {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 14px 12px;
+  }
+
+  .service-card,
+  .project-card {
+    padding: 12px 12px;
+  }
+
+  .project-info,
+  .service-desc {
+    margin-top: 10px;
+  }
+
+  .modal-dialog {
+    width: calc(100vw - 16px);
+    margin: 20px auto;
+    border-radius: 12px;
+  }
+
+  .modal-hero {
+    aspect-ratio: 4 / 3;
+  }
+
+  .carousel-arrow {
+    width: 40px;
+    height: 40px;
+  }
+
+  .carousel-prev {
+    left: 8px;
+  }
+
+  .carousel-next {
+    right: 8px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header-top button {
+    padding: clamp(8px, 1.5vw, 12px) clamp(12px, 2vw, 20px);
+    font-size: clamp(0.85em, 1.8vw, 1em);
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-header {
+    margin-bottom: 28px;
+  }
+
+  .load-more-btn {
+    padding: clamp(12px, 2vw, 16px) clamp(20px, 4vw, 32px);
+    font-size: clamp(0.9em, 1.8vw, 1em);
   }
 }
 .service-card {
@@ -960,7 +1178,7 @@ header ul li a {
   letter-spacing: -0.01em;
   margin: 0;
   color: var(--off-white);
-  font-size: 1.4em;
+  font-size: clamp(1.1em, 3vw, 1.4em);
 }
 
 .service-desc {
