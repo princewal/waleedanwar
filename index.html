@@ -477,29 +477,50 @@ C 756.077 601.738 755.316 597.456 756.149 594.331 Z"
           </rect>
         </svg>
       </a>
-      <nav>
-        <ul>
-          <li>
-            <a href="#home">Home</a>
-          </li>
-          <li>
-            <a href="#about">About</a>
-          </li>
-          <li>
-            <a href="#services">Services</a>
-          </li>
-          <li>
-            <a href="#portfolio">Work</a>
-          </li>
-        </ul>
-      </nav>
+      <button
+        class="menu-toggle"
+        id="menu-toggle"
+        type="button"
+        aria-label="Toggle menu"
+        aria-controls="fullscreen-menu"
+        aria-expanded="false"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="fullscreen-menu" id="fullscreen-menu" aria-hidden="true">
+        <nav class="fullscreen-menu__nav" aria-label="Primary">
+          <ul>
+            <li>
+              <a href="#home">Home</a>
+            </li>
+            <li>
+              <a href="#about">About</a>
+            </li>
+            <li>
+              <a href="#services">Services</a>
+            </li>
+            <li>
+              <a href="#portfolio">Work</a>
+            </li>
+            <li>
+              <a href="#contact">Contact</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </header>
     <main>
       <article class="container">
         <section class="banner" id="home">
           <div class="content">
             <div class="starter">Hey_</div>
-            <h1>I am <span id="text"></span></h1>
+            <h1>
+              <span class="intro-line">I am</span>
+              <span class="typed-line"><span id="text"></span></span>
+            </h1>
             <p>
               A developer on your side that works for the reason behind the
               idea.

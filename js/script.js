@@ -169,6 +169,149 @@ function stopContactTypingEffect() {
 
 // Lenis smooth scroll (must run before GSAP so ScrollTrigger uses Lenis scroll)
 let lenis = null;
+let isFullscreenMenuOpen = false;
+let menuToggleBtn = null;
+let fullscreenMenuEl = null;
+let lastScrollY = 0;
+let isHeaderHidden = false;
+let hasUserScrolled = false;
+
+function setHeaderHidden(hidden, { force = false } = {}) {
+  const header = document.querySelector(".header-top");
+  if (!header) return;
+  if (!force && hidden === isHeaderHidden) return;
+
+  isHeaderHidden = hidden;
+
+  if (typeof gsap !== "undefined" && typeof gsap.to === "function") {
+    gsap.to(header, {
+      yPercent: hidden ? -120 : 0,
+      duration: 0.35,
+      ease: "power2.out",
+      overwrite: "auto",
+    });
+    return;
+  }
+
+  header.style.transform = hidden
+    ? "translate3d(0, -120%, 0)"
+    : "translate3d(0, 0, 0)";
+}
+
+function updateHeaderAutoHide(currentY) {
+  if (!Number.isFinite(currentY)) return;
+
+  if (isFullscreenMenuOpen) {
+    setHeaderHidden(false);
+    lastScrollY = currentY;
+    return;
+  }
+
+  // Keep header visible until the user actively scrolls.
+  const initialDelta = Math.abs(currentY - lastScrollY);
+  if (!hasUserScrolled) {
+    if (initialDelta > 1) hasUserScrolled = true;
+    setHeaderHidden(false);
+    lastScrollY = currentY;
+    return;
+  }
+
+  const delta = currentY - lastScrollY;
+  const threshold = 6;
+
+  if (currentY <= 20) {
+    setHeaderHidden(false);
+  } else if (delta > threshold) {
+    setHeaderHidden(true);
+  } else if (delta < -threshold) {
+    setHeaderHidden(false);
+  }
+
+  lastScrollY = currentY;
+}
+
+function initAutoHideHeader() {
+  const header = document.querySelector(".header-top");
+  if (!header) return;
+
+  lastScrollY = window.scrollY || window.pageYOffset || 0;
+  hasUserScrolled = false;
+  setHeaderHidden(false, { force: true });
+
+  if (lenis) {
+    lenis.on("scroll", (e) => {
+      const currentY =
+        typeof e === "number"
+          ? e
+          : typeof e?.animatedScroll === "number"
+            ? e.animatedScroll
+            : typeof e?.scroll === "number"
+              ? e.scroll
+              : window.scrollY || window.pageYOffset || 0;
+      updateHeaderAutoHide(currentY);
+    });
+    return;
+  }
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      const currentY = window.scrollY || window.pageYOffset || 0;
+      updateHeaderAutoHide(currentY);
+    },
+    { passive: true },
+  );
+}
+
+function openFullscreenMenu() {
+  if (!menuToggleBtn || !fullscreenMenuEl) return;
+  if (isFullscreenMenuOpen) return;
+
+  isFullscreenMenuOpen = true;
+  setHeaderHidden(false);
+  document.body.classList.add("menu-open");
+  menuToggleBtn.setAttribute("aria-expanded", "true");
+  fullscreenMenuEl.setAttribute("aria-hidden", "false");
+
+  if (lenis) lenis.stop();
+}
+
+function closeFullscreenMenu(options = {}) {
+  const { keepLenisStopped = false } = options;
+  if (!menuToggleBtn || !fullscreenMenuEl) return;
+
+  isFullscreenMenuOpen = false;
+  document.body.classList.remove("menu-open");
+  menuToggleBtn.setAttribute("aria-expanded", "false");
+  fullscreenMenuEl.setAttribute("aria-hidden", "true");
+
+  if (lenis && !keepLenisStopped) lenis.start();
+}
+
+function initFullscreenMenu() {
+  menuToggleBtn = document.querySelector("#menu-toggle");
+  fullscreenMenuEl = document.querySelector("#fullscreen-menu");
+
+  if (!menuToggleBtn || !fullscreenMenuEl) return;
+
+  menuToggleBtn.addEventListener("click", () => {
+    if (isFullscreenMenuOpen) {
+      closeFullscreenMenu();
+    } else {
+      openFullscreenMenu();
+    }
+  });
+
+  fullscreenMenuEl.addEventListener("click", (e) => {
+    if (e.target === fullscreenMenuEl) closeFullscreenMenu();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isFullscreenMenuOpen) {
+      closeFullscreenMenu();
+    }
+  });
+}
 
 function initLenis() {
   if (typeof Lenis === "undefined") return;
@@ -692,8 +835,22 @@ function initGSAPAnimations() {
   anchorLinks.forEach((link) => {
     link.addEventListener("click", function (e) {
       const href = this.getAttribute("href");
-      if (href === "#" || href === "") return;
+      const isMenuLink = !!this.closest(".fullscreen-menu");
+
+      if (href === "#" || href === "") {
+        if (isFullscreenMenuOpen) {
+          e.preventDefault();
+          closeFullscreenMenu();
+        }
+        return;
+      }
+
       e.preventDefault();
+
+      if (isMenuLink && isFullscreenMenuOpen) {
+        closeFullscreenMenu();
+      }
+
       if (href === "#home") {
         if (lenis) lenis.scrollTo(0, { duration: 1.2 });
         else
@@ -1158,7 +1315,7 @@ function closeProjectModal() {
   const finish = () => {
     els.root.classList.remove("is-open");
     els.root.setAttribute("aria-hidden", "true");
-    if (lenis) lenis.start();
+    if (lenis && !isFullscreenMenuOpen) lenis.start();
   };
 
   if (activeModalTl) activeModalTl.kill();
@@ -1287,13 +1444,60 @@ function loadMoreProjects() {
 }
 
 async function fetchPortfolio() {
-  const response = await fetch("js/projects.json");
-  const portfolio = await response.json();
-  return portfolio;
+  if (window.location.protocol === "file:") {
+    throw new Error(
+      "Blocked by browser CORS on file:// origin. Serve via Live Server/http(s) instead.",
+    );
+  }
+
+  const scriptSrc = document
+    .querySelector('script[src*="js/script.js"]')
+    ?.getAttribute("src");
+  const scriptBasedUrl = scriptSrc
+    ? new URL(
+        "projects.json",
+        new URL(scriptSrc, window.location.href),
+      ).toString()
+    : null;
+
+  const candidateUrls = [
+    scriptBasedUrl,
+    new URL("js/projects.json", window.location.href).toString(),
+    `${window.location.origin}/js/projects.json`,
+    "./js/projects.json",
+    "js/projects.json",
+  ].filter(Boolean);
+
+  const uniqueCandidates = [...new Set(candidateUrls)];
+  let lastError = null;
+
+  for (const url of uniqueCandidates) {
+    try {
+      const response = await fetch(url, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status} ${response.statusText}`);
+      }
+
+      const portfolio = await response.json();
+      if (!Array.isArray(portfolio)) {
+        throw new Error("Invalid projects.json format (expected an array)");
+      }
+
+      return portfolio;
+    } catch (error) {
+      lastError = error;
+    }
+  }
+
+  throw new Error(
+    `Unable to load projects.json from known paths. Last error: ${lastError?.message || "unknown"}`,
+  );
 }
 
 window.addEventListener("DOMContentLoaded", function (e) {
   initLenis();
+  initFullscreenMenu();
+  initAutoHideHeader();
   initGSAPAnimations();
   initButtonAnimations();
   initSmoothScrollBehavior();
@@ -1312,6 +1516,12 @@ window.addEventListener("DOMContentLoaded", function (e) {
       }
     })
     .catch((error) => {
+      const grid = document.querySelector("#portfolio-grid");
+      if (grid) {
+        grid.innerHTML =
+          "<p class='no-projects'>Unable to load projects right now. Please refresh or verify server path to <code>js/projects.json</code>.</p>";
+      }
+
       console.error(
         'Error fetching portfolio. Please check if "js/projects.json" exists and is accessible. Detailed error:',
         error,
