@@ -410,7 +410,7 @@ body.menu-open {
 .content h1 {
   font-family: var(--header-text);
   font-weight: 700;
-  font-size: clamp(2rem, 6vw, 4.5em);
+  font-size: clamp(3rem, 6vw, 4.5em);
   color: var(--off-white);
   transition: 0.5s;
 }
@@ -452,8 +452,11 @@ body.menu-open {
   text-align: left;
 }
 
-.content button.hero-hire {
+.content .hero-hire {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: var(--red);
   color: white;
   border: none;
@@ -461,9 +464,12 @@ body.menu-open {
   padding: clamp(10px, 2vw, 14px) clamp(16px, 4vw, 32px);
   font-size: clamp(0.9em, 2vw, 1.15em);
   letter-spacing: 0.05em;
+  margin-top: clamp(14px, 2.6vw, 24px);
+  margin-bottom: clamp(20px, 3.6vw, 34px);
   margin-right: clamp(8px, 2vw, 20px);
   border-radius: 6px;
   font-weight: 600;
+  text-decoration: none;
   cursor: pointer;
   opacity: 1;
   box-shadow: 0 6px 18px rgba(255, 81, 30, 0.2);
@@ -473,23 +479,82 @@ body.menu-open {
     opacity 0.2s ease;
 }
 
-.content button.hero-hire:hover,
-.content button.hero-hire:focus-visible {
+.content .hero-hire:hover,
+.content .hero-hire:focus-visible {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(255, 80, 38, 0.4);
   opacity: 0.98;
 }
 
-.content button.chat {
-  background: transparent;
+.hero-process {
+  margin-top: 0;
+  max-width: 680px;
+}
+
+.hero-process__label {
+  margin: 0 0 10px 0;
+  padding: 0;
+  font-size: clamp(0.72em, 1.4vw, 0.82em);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(240, 240, 240, 0.7);
+}
+
+.hero-process__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(10px, 1.8vw, 16px);
+}
+
+.hero-process__card {
+  padding: clamp(12px, 2vw, 16px);
+  border-radius: 12px;
+  background: linear-gradient(180deg, var(--glass-strong), var(--glass));
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
+  text-align: left;
+}
+
+.hero-process__card h3 {
+  margin: 0 0 8px 0;
+  font-family: var(--header-text);
+  font-size: clamp(1em, 2vw, 1.15em);
+  line-height: 1.2;
   color: var(--off-white);
 }
 
-.content button.chat ion-icon {
+.hero-process__card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-process__card li {
   position: relative;
-  top: 5px;
-  color: var(--red);
-  font-size: 1.5em;
+  margin: 0;
+  padding: 0 0 0 16px;
+  font-size: clamp(0.88em, 1.8vw, 0.96em);
+  line-height: 1.65;
+  color: rgba(240, 240, 240, 0.86);
+}
+
+.hero-process__card li + li {
+  margin-top: 4px;
+}
+
+.hero-process__card li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.68em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e34c26, #ff7a59, #ffcc70);
+  box-shadow: 0 0 10px rgba(227, 76, 38, 0.45);
 }
 
 .banner.night header .logo,
@@ -681,12 +746,15 @@ body.menu-open {
   line-height: 1.05;
   letter-spacing: -0.02em;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  align-items: baseline;
   gap: 0.3em;
+  white-space: nowrap;
 }
 
 .section-title .reveal-word {
-  display: inline-block;
+  display: inline-flex;
+  align-items: baseline;
   will-change: transform, opacity;
 }
 
@@ -1281,18 +1349,15 @@ body.menu-open {
 
   .content h1 {
     line-height: 1.1;
-    margin-bottom: 12px;
+    margin-block: 15px;
   }
 
-  .content button.hero-hire {
+  .content .hero-hire {
     display: block;
     width: 100%;
+    margin-top: clamp(14px, 4vw, 18px);
+    margin-bottom: clamp(18px, 5vw, 24px);
     margin-right: 0;
-    margin-bottom: 12px;
-  }
-
-  .content button.hero-hire + button {
-    width: 100%;
   }
 
   .content {
@@ -1351,7 +1416,7 @@ body.menu-open {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .banner {
     min-height: 100vh;
     min-height: 100dvh;
@@ -1406,6 +1471,22 @@ body.menu-open {
 
   .content h1 .typed-line {
     margin-top: 0.1em;
+  }
+
+  .hero-process__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.1em;
+    white-space: normal;
+  }
+
+  .section-title .reveal-word {
+    display: block;
+    width: 100%;
   }
 
   .header-top button:not(.menu-toggle) {
@@ -1549,10 +1630,6 @@ body.night {
   color: var(--off-white);
 }
 body.night .content h2 {
-  color: var(--off-white);
-}
-body.night .content button.chat {
-  background: var(--dark);
   color: var(--off-white);
 }
 

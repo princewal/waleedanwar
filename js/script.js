@@ -429,7 +429,6 @@ function initGSAPAnimations() {
         start: "top 85%",
         toggleActions: "play none none reverse",
       },
-      opacity: 0,
       y: 30,
       duration: 1,
       ease: "power2.out",
@@ -532,7 +531,6 @@ function initGSAPAnimations() {
         start: "top 85%",
         toggleActions: "play none none reverse",
       },
-      opacity: 0,
       x: 60,
       duration: 1,
       ease: "power2.out",
@@ -650,7 +648,6 @@ function initGSAPAnimations() {
         start: "top 85%",
         toggleActions: "play none none reverse",
       },
-      opacity: 0,
       y: 30,
       duration: 1,
       ease: "power2.out",
@@ -753,7 +750,6 @@ function initGSAPAnimations() {
         start: "top 85%",
         toggleActions: "play none none reverse",
       },
-      opacity: 0,
       y: 30,
       duration: 0.85,
       ease: "power2.out",
@@ -788,14 +784,18 @@ function initGSAPAnimations() {
 
   // Ensure bg-word motion works for all sections
   const sectionBgWords = document.querySelectorAll(".section .bg-word");
+  if (sectionBgWords.length) {
+    gsap.set(sectionBgWords, { opacity: 0.5 });
+  }
+
   sectionBgWords.forEach((bgWord, idx) => {
     const direction = idx % 2 === 0 ? "-16%" : "16%";
     gsap.fromTo(
       bgWord,
-      { x: "0%", opacity: 0.55, scale: 1 },
+      { x: "0%", opacity: 0.5, scale: 1 },
       {
         x: direction,
-        opacity: 0.16,
+        opacity: 0.5,
         scale: 1.03,
         ease: "none",
         scrollTrigger: {
