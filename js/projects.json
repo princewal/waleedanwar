@@ -6,40 +6,48 @@
     "type": "web",
     "images": [
       {
-        "src": "blackpine-landing.png",
+        "src": "blackpine-landing.webp",
         "comment": "home page"
       },
       {
-        "src": "blackpine-blackbook-detail.png",
+        "src": "blackpine-blackbook-detail.webp",
         "comment": "community list"
       },
       {
-        "src": "blackpine-community-shortcut.png",
+        "src": "blackpine-community-shortcut.webp",
         "comment": "home page community short cut"
       },
       {
-        "src": "blackpine-left-scrollbar.png",
+        "src": "blackpine-left-scrollbar.webp",
         "comment": "side scroll bar"
       },
       {
-        "src": "blackpine-nav-open.png",
+        "src": "blackpine-nav-open.webp",
         "comment": "open nav"
       },
       {
-        "src": "blackpine-nav-open.png",
+        "src": "blackpine-nav-open.webp",
         "comment": "video section"
       },
       {
-        "src": "blackpine-community-page.jpg",
+        "src": "blackpine-community-page.webp",
         "comment": "community page"
       },
       {
-        "src": "blackpine-community-list.jpg",
+        "src": "blackpine-community-list.webp",
         "comment": "list of homes in a community"
       }
     ],
-    "technology": ["html5", "SCSS", "js", "JQuery"],
-    "other_technology": ["slick slider", "fancybox"]
+    "technology": [
+      "html5",
+      "SCSS",
+      "js",
+      "JQuery"
+    ],
+    "other_technology": [
+      "slick slider",
+      "fancybox"
+    ]
   },
   {
     "name": "Neff Living",
@@ -48,20 +56,27 @@
     "type": "web",
     "images": [
       {
-        "src": "neff-landing.jpg",
+        "src": "neff-landing.webp",
         "comment": "neff landing page"
       },
       {
-        "src": "neff-welcome.jpg",
+        "src": "neff-welcome.webp",
         "comment": "home page header"
       },
       {
-        "src": "neff-nav.jpg",
+        "src": "neff-nav.webp",
         "comment": "nav open and hover effect"
       }
     ],
-    "technology": ["html5", "SCSS", "js"],
-    "other_technology": ["slick slider", "fancybox"]
+    "technology": [
+      "html5",
+      "SCSS",
+      "js"
+    ],
+    "other_technology": [
+      "slick slider",
+      "fancybox"
+    ]
   },
   {
     "name": "elad canada",
@@ -70,16 +85,21 @@
     "type": "web",
     "images": [
       {
-        "src": "neff-landing.jpg",
+        "src": "neff-landing.webp",
         "comment": "neff landing page"
       },
       {
-        "src": "elad-signup.jpg",
+        "src": "elad-signup.webp",
         "comment": "sign up slider"
       }
     ],
     "media": "elad-website-design.pdf",
-    "technology": ["html5", "css", "bootstrap", "js"]
+    "technology": [
+      "html5",
+      "css",
+      "bootstrap",
+      "js"
+    ]
   },
   {
     "name": "wp development",
@@ -88,31 +108,36 @@
     "type": "web",
     "images": [
       {
-        "src": "wp-development-landing.jpg",
+        "src": "wp-development-landing.webp",
         "comment": "wp development landing page"
       },
       {
-        "src": "wp-development-about.jpg",
+        "src": "wp-development-about.webp",
         "comment": "wp development about page"
       },
       {
-        "src": "wp-development-communities.jpg",
+        "src": "wp-development-communities.webp",
         "comment": "list of communities"
       },
       {
-        "src": "wp-development-siteplan.jpg",
+        "src": "wp-development-siteplan.webp",
         "comment": "community site plan"
       },
       {
-        "src": "wp-development-valleyview-homes.jpg",
+        "src": "wp-development-valleyview-homes.webp",
         "comment": "list of homes in a community"
       },
       {
-        "src": "wp-development-area-amenities.jpg",
+        "src": "wp-development-area-amenities.webp",
         "comment": "community area amenities"
       }
     ],
-    "technology": ["html5", "css", "bootstrap", "js"]
+    "technology": [
+      "html5",
+      "css",
+      "bootstrap",
+      "js"
+    ]
   },
   {
     "name": "veraine",
@@ -121,19 +146,24 @@
     "type": "web",
     "images": [
       {
-        "src": "veraine-landing.jpg",
+        "src": "veraine-landing.webp",
         "comment": "veraine landing page"
       },
       {
-        "src": "veraine-nav.jpg",
+        "src": "veraine-nav.webp",
         "comment": "navigation"
       },
       {
-        "src": "veraine-expanded-calendar.jpg",
+        "src": "veraine-expanded-calendar.webp",
         "comment": "expanded calendar"
       }
     ],
-    "technology": ["html5", "css", "scss", "js"]
+    "technology": [
+      "html5",
+      "css",
+      "scss",
+      "js"
+    ]
   },
   {
     "name": "skale",
@@ -142,27 +172,32 @@
     "type": "web",
     "images": [
       {
-        "src": "skale-landing.jpg",
+        "src": "skale-landing.webp",
         "comment": "skale landing page"
       },
       {
-        "src": "skale-residential.jpg",
+        "src": "skale-residential.webp",
         "comment": "residentials list page"
       },
       {
-        "src": "skale-residence.jpg",
+        "src": "skale-residence.webp",
         "comment": "a single residence page"
       },
       {
-        "src": "skale-register.jpg",
+        "src": "skale-register.webp",
         "comment": "register page"
       },
       {
-        "src": "skale-contact.jpg",
+        "src": "skale-contact.webp",
         "comment": "contact form"
       }
     ],
-    "technology": ["html5", "purecss.io", "scss", "js"]
+    "technology": [
+      "html5",
+      "purecss.io",
+      "scss",
+      "js"
+    ]
   },
   {
     "name": "emblem corp",
@@ -171,12 +206,17 @@
     "type": "web",
     "images": [
       {
-        "src": "emblem-website.jpg",
+        "src": "emblem-website.webp",
         "comment": "emblem landing page"
       }
     ],
     "media": "emblem-corp-website.pdf",
-    "technology": ["html5", "css", "scss", "js"]
+    "technology": [
+      "html5",
+      "css",
+      "scss",
+      "js"
+    ]
   },
   {
     "name": "Stanford",
@@ -185,27 +225,33 @@
     "type": "web",
     "images": [
       {
-        "src": "stanford-landing.jpg",
+        "src": "stanford-landing.webp",
         "comment": "stanford home page, desktop and mobile layout"
       },
       {
-        "src": "stanford-homes.jpg",
+        "src": "stanford-homes.webp",
         "comment": "residence page desktop/mobile layout"
       },
       {
-        "src": "stanford-101.jpg",
+        "src": "stanford-101.webp",
         "comment": "about us page"
       },
       {
-        "src": "stanford-models.jpg",
+        "src": "stanford-models.webp",
         "comment": "list of models"
       },
       {
-        "src": "stanford-floorplans.jpg",
+        "src": "stanford-floorplans.webp",
         "comment": "a community floorplan with elevations"
       }
     ],
-    "technology": ["html5", "purecss.io", "scss", "js", "vue"]
+    "technology": [
+      "html5",
+      "purecss.io",
+      "scss",
+      "js",
+      "vue"
+    ]
   },
   {
     "name": "Jerry Hammond",
@@ -222,7 +268,12 @@
         "comment": "hammond properties"
       }
     ],
-    "technology": ["html5", "purecss.io", "js", "foundation"]
+    "technology": [
+      "html5",
+      "purecss.io",
+      "js",
+      "foundation"
+    ]
   },
   {
     "name": "Stanford touch",
@@ -231,27 +282,33 @@
     "type": "touchscreen",
     "images": [
       {
-        "src": "69-stanford-touchscreen-start-screen.png",
+        "src": "69-stanford-touchscreen-start-screen.webp",
         "comment": "Start page to choose what area"
       },
       {
-        "src": "69-stanford-our-story-page.png",
+        "src": "69-stanford-our-story-page.webp",
         "comment": "about us"
       },
       {
-        "src": "69-stanford-touchscreen-model-list.png",
+        "src": "69-stanford-touchscreen-model-list.webp",
         "comment": "list of models"
       },
       {
-        "src": "69-stanford-touchscreen-floorplan-detail.png",
+        "src": "69-stanford-touchscreen-floorplan-detail.webp",
         "comment": "floorplan details"
       },
       {
-        "src": "69-stanford-screensaver.png",
+        "src": "69-stanford-screensaver.webp",
         "comment": "screensaver"
       }
     ],
-    "technology": ["html5", "purecss.io", "scss", "js", "vue"]
+    "technology": [
+      "html5",
+      "purecss.io",
+      "scss",
+      "js",
+      "vue"
+    ]
   },
   {
     "name": "Stantec touch",
@@ -272,7 +329,12 @@
         "comment": "floorplan details"
       }
     ],
-    "technology": ["html5", "scss", "js", "vue"]
+    "technology": [
+      "html5",
+      "scss",
+      "js",
+      "vue"
+    ]
   },
   {
     "name": "SXSW 28 Eastern Corktown",
@@ -281,30 +343,36 @@
     "type": "touchscreen",
     "images": [
       {
-        "src": "28-eastern-district-corktown.jpg",
+        "src": "28-eastern-district-corktown.webp",
         "comment": "Start page"
       },
       {
-        "src": "28-eastern-outdoor.jpg",
+        "src": "28-eastern-outdoor.webp",
         "comment": "outdoor living"
       },
       {
-        "src": "28-eastern-select.jpg",
+        "src": "28-eastern-select.webp",
         "comment": "list of models"
       },
       {
-        "src": "28-eastern-floorplan.jpg",
+        "src": "28-eastern-floorplan.webp",
         "comment": "floorplan details"
       },
       {
-        "src": "28-eastern-building-amenities.jpg",
+        "src": "28-eastern-building-amenities.webp",
         "comment": "Building Amenities"
       },
       {
-        "src": "28-eastern-transit.jpg",
+        "src": "28-eastern-transit.webp",
         "comment": "transit location"
       }
     ],
-    "technology": ["html5", "purecss.io", "scss", "js", "vue"]
+    "technology": [
+      "html5",
+      "purecss.io",
+      "scss",
+      "js",
+      "vue"
+    ]
   }
 ]

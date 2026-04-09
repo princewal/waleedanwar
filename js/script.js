@@ -1,5 +1,20 @@
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger, TextPlugin, ScrollToPlugin);
+const hasWindow = typeof window !== "undefined";
+const hasGSAP = typeof gsap !== "undefined";
+const hasScrollTrigger =
+  hasWindow && typeof window.ScrollTrigger !== "undefined";
+const hasTextPlugin = hasWindow && typeof window.TextPlugin !== "undefined";
+const hasScrollToPlugin =
+  hasWindow && typeof window.ScrollToPlugin !== "undefined";
+const hasTyped = hasWindow && typeof window.Typed !== "undefined";
+
+// Register GSAP plugins only when available
+if (hasGSAP && typeof gsap.registerPlugin === "function") {
+  const plugins = [];
+  if (hasScrollTrigger) plugins.push(window.ScrollTrigger);
+  if (hasTextPlugin) plugins.push(window.TextPlugin);
+  if (hasScrollToPlugin) plugins.push(window.ScrollToPlugin);
+  if (plugins.length) gsap.registerPlugin(...plugins);
+}
 
 let body = document.body;
 
@@ -8,13 +23,27 @@ let allProjects = [];
 let projectsShown = 0;
 const projectsPerLoad = 6;
 
-let typingEffect = new Typed("#text", {
-  strings: ["Waleed", "a Developer", "a Coder", "a Lead"],
-  loop: true,
-  typeSpeed: 100,
-  backSpeed: 50,
-  backDelay: 2500,
-});
+let typingEffect = null;
+
+function startHeroTypingEffect() {
+  if (!hasTyped || prefersReducedMotion()) return;
+
+  const el = document.querySelector("#text");
+  if (!el) return;
+
+  if (typingEffect) {
+    typingEffect.destroy();
+    typingEffect = null;
+  }
+
+  typingEffect = new Typed("#text", {
+    strings: ["Waleed", "a Developer", "a Coder", "a Lead"],
+    loop: true,
+    typeSpeed: 100,
+    backSpeed: 50,
+    backDelay: 2500,
+  });
+}
 
 let shipTypingEffect = null;
 
@@ -314,20 +343,30 @@ function initFullscreenMenu() {
 }
 
 function initLenis() {
-  if (typeof Lenis === "undefined") return;
+  if (typeof Lenis === "undefined" || !hasGSAP || !gsap.ticker) return;
+
   lenis = new Lenis({
     duration: 1.2,
     smoothWheel: true,
   });
-  lenis.on("scroll", ScrollTrigger.update);
+
+  if (hasScrollTrigger && typeof ScrollTrigger.update === "function") {
+    lenis.on("scroll", ScrollTrigger.update);
+  }
+
   gsap.ticker.add((time) => {
     lenis.raf(time * 1000);
   });
-  gsap.ticker.lagSmoothing(0);
+
+  if (typeof gsap.ticker.lagSmoothing === "function") {
+    gsap.ticker.lagSmoothing(0);
+  }
 }
 
 // Enforce minimum opacity of 0.5 for all typed elements
 function enforceMinimumOpacity() {
+  if (!hasGSAP) return;
+
   const typedElements = [
     document.querySelector("#about-type"),
     document.querySelector("#ship-type"),
@@ -346,10 +385,14 @@ function enforceMinimumOpacity() {
 }
 
 // Run opacity enforcement on every frame
-gsap.ticker.add(enforceMinimumOpacity);
+if (hasGSAP && gsap.ticker && typeof gsap.ticker.add === "function") {
+  gsap.ticker.add(enforceMinimumOpacity);
+}
 
 // GSAP Animations
 function initGSAPAnimations() {
+  if (!hasGSAP || !hasScrollTrigger) return;
+
   // Banner content fade-in animation on page load
   const bannerContent = document.querySelector(".banner .content");
   if (bannerContent) {
@@ -879,6 +922,7 @@ function initGSAPAnimations() {
 
 // Fallback smooth scroll only when Lenis is not loaded (wheel/keyboard)
 function initSmoothScrollBehavior() {
+  if (!hasGSAP) return;
   if (lenis) return;
   let isScrolling = false;
   let scrollTimeout;
@@ -946,6 +990,8 @@ function initSmoothScrollBehavior() {
 
 // Add hover animations to buttons
 function initButtonAnimations() {
+  if (!hasGSAP) return;
+
   const buttons = document.querySelectorAll("button");
   buttons.forEach((button) => {
     button.addEventListener("mouseenter", function () {
@@ -1156,6 +1202,11 @@ function openProjectModal(project) {
 
   if (lenis) lenis.stop();
 
+  if (!hasGSAP) {
+    if (els.closeBtn) els.closeBtn.focus();
+    return;
+  }
+
   // Kill any existing timeline
   if (activeModalTl) activeModalTl.kill();
 
@@ -1220,13 +1271,22 @@ function setupCarousel(project) {
   });
 
   // Set initial position
-  gsap.set(els.carouselImages, { x: 0 });
+  if (hasGSAP) {
+    gsap.set(els.carouselImages, { x: 0 });
+  } else {
+    els.carouselImages.style.transform = "translateX(0%)";
+  }
 
   // Set initial title
   updateCarouselTitle(true);
 
   // Make sure title is visible initially
-  gsap.set(els.carouselTitle, { opacity: 1, y: 0 });
+  if (hasGSAP) {
+    gsap.set(els.carouselTitle, { opacity: 1, y: 0 });
+  } else {
+    els.carouselTitle.style.opacity = "1";
+    els.carouselTitle.style.transform = "translateY(0)";
+  }
 
   // Setup navigation
   carouselPrevHandler = () => navigateCarousel(-1);
@@ -1247,6 +1307,14 @@ function navigateCarousel(direction) {
   );
 
   if (newIndex === currentCarouselIndex) return;
+
+  if (!hasGSAP) {
+    currentCarouselIndex = newIndex;
+    updateCarouselTitle(true);
+    els.carouselImages.style.transform = `translateX(-${currentCarouselIndex * 100}%)`;
+    updateCarouselButtons();
+    return;
+  }
 
   // Animate title out
   gsap.to(els.carouselTitle, {
@@ -1277,6 +1345,12 @@ function updateCarouselTitle(immediate = false) {
   const els = getModalEls();
   const currentImage = carouselImages[currentCarouselIndex];
   els.carouselTitle.textContent = toTitleCase(currentImage?.comment || "");
+
+  if (!hasGSAP) {
+    els.carouselTitle.style.opacity = "1";
+    els.carouselTitle.style.transform = "translateY(0)";
+    return;
+  }
 
   if (immediate) {
     gsap.set(els.carouselTitle, { opacity: 1, y: 0 });
@@ -1309,7 +1383,15 @@ function closeProjectModal() {
   currentCarouselIndex = 0;
   carouselImages = [];
   if (els.carouselImages) {
-    gsap.set(els.carouselImages, { x: 0 });
+    if (hasGSAP) gsap.set(els.carouselImages, { x: 0 });
+    else els.carouselImages.style.transform = "translateX(0%)";
+  }
+
+  if (!hasGSAP) {
+    els.root.classList.remove("is-open");
+    els.root.setAttribute("aria-hidden", "true");
+    if (lenis && !isFullscreenMenuOpen) lenis.start();
+    return;
   }
 
   const finish = () => {
@@ -1418,7 +1500,9 @@ function fillUpPortfolio(portfolio, limit = null) {
   });
 
   // Let ScrollTrigger recalc after DOM changes
-  ScrollTrigger.refresh();
+  if (hasScrollTrigger && typeof ScrollTrigger.refresh === "function") {
+    ScrollTrigger.refresh();
+  }
 }
 
 function updateLoadMoreButton() {
@@ -1495,6 +1579,7 @@ async function fetchPortfolio() {
 }
 
 window.addEventListener("DOMContentLoaded", function (e) {
+  startHeroTypingEffect();
   initLenis();
   initFullscreenMenu();
   initAutoHideHeader();
